@@ -1,6 +1,14 @@
 import { useState } from "react";
 import api from "../../services/api";
 
+import Card from "../common/Card";
+import Button from "../common/Button";
+
+import UploadZone from "./UploadZone";
+
+import AnalysisLoader from "../analysis/AnalysisLoader";
+import CandidateDashboard from "../analysis/CandidateDashboard";
+
 interface Candidate {
   candidate_name: string;
   skills: string[];
@@ -10,8 +18,14 @@ interface Candidate {
   recommended_role: string;
 }
 
+interface UploadResponse {
+  message: string;
+  filename: string;
+  candidate: Candidate;
+}
+
 export default function UploadCard() {
-  const [file, setFile] =useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [candidate, setCandidate] = useState<Candidate | null>(null);
 
@@ -24,90 +38,57 @@ export default function UploadCard() {
     try {
       setLoading(true);
 
-      const response = await api.post("/upload-cv", formData);
+      const response = await api.post<UploadResponse>(
+        "/upload-cv",
+        formData
+      );
 
-      console.log(response.data);
+      // Keep the loading animation visible briefly
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       setCandidate(response.data.candidate);
-
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       alert("Upload failed");
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl">
+  // Show loading screen
+  if (loading) {
+    return <AnalysisLoader />;
+  }
 
-      <h2 className="text-3xl font-bold mb-6">
-        Upload Your CV
+  // Show dashboard after upload
+  if (candidate) {
+    return <CandidateDashboard candidate={candidate} />;
+  }
+
+  // Default upload screen
+  return (
+    <Card className="mx-auto w-full max-w-3xl">
+      <h2 className="mb-3 text-center text-4xl font-bold">
+        Upload Your Resume
       </h2>
 
-      <input
-        type="file"
-        accept=".pdf"
-        onChange={(e) => {
-          if (e.target.files) {
-            setFile(e.target.files[0]);
-          }
-        }}
+      <p className="mb-8 text-center text-slate-500">
+        Upload your resume and let AI prepare a personalized interview.
+      </p>
+
+      <UploadZone
+        file={file}
+        onFileSelected={(selectedFile) => setFile(selectedFile)}
       />
 
-      {file && (
-        <p className="mt-4 text-gray-600">
-          {file.name}
-        </p>
-      )}
-
-      <button
-        onClick={uploadCV}
-        disabled={loading}
-        className="mt-6 w-full bg-blue-600 text-white rounded-xl py-3 hover:bg-blue-700"
-      >
-        {loading ? "Uploading..." : "Upload CV"}
-      </button>
-
-      {candidate && (
-        <div className="mt-8 rounded-xl bg-slate-100 p-6 text-left">
-
-          <h2 className="text-2xl font-bold mb-4">
-            Candidate Analysis
-          </h2>
-
-          <p>
-            <strong>Name:</strong> {candidate.candidate_name}
-          </p>
-
-          <p className="mt-3">
-            <strong>Recommended Role:</strong>{" "}
-            {candidate.recommended_role}
-          </p>
-
-          <div className="mt-4">
-            <strong>Skills</strong>
-
-            <ul className="list-disc ml-6">
-              {candidate.skills.map((skill) => (
-                <li key={skill}>{skill}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="mt-4">
-            <strong>Education</strong>
-
-            <ul className="list-disc ml-6">
-              {candidate.education.map((edu) => (
-                <li key={edu}>{edu}</li>
-              ))}
-            </ul>
-          </div>
-
-        </div>
-      )}
-
-    </div>
+      <div className="mt-8">
+        <Button
+          onClick={uploadCV}
+          disabled={!file}
+        >
+          Analyze Resume
+        </Button>
+      </div>
+    </Card>
   );
 }
