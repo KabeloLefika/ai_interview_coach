@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { generateInterviewResult } from "../../services/interviewResult";
+import { useSession } from "../../hooks/useSession";
 
 import Card from "../common/Card";
 import Button from "../common/Button";
@@ -23,6 +24,13 @@ export default function InterviewCard() {
 
   const navigate = useNavigate();
 
+  const {
+    candidate,
+    setResult,
+    setInterviewCompleted,
+  } = useSession();
+
+
   const totalQuestions = questions.length;
 
   const nextQuestion = () => {
@@ -30,16 +38,22 @@ export default function InterviewCard() {
     setCurrentQuestion(currentQuestion + 1);
     setAnswer("");
   } else {
-    const result = generateInterviewResult(
-      "Candidate",
-      "Cloud Engineer"
-    );
+    if (!candidate) {
+  navigate("/");
+  return;
+}
 
-    navigate("/results", {
-      state: result,
-    });
+const result = generateInterviewResult(
+  candidate.candidate_name,
+  candidate.recommended_role
+);
+
+    setResult(result);
+    setInterviewCompleted(true);
+
+    navigate("/results");
+    };
   }
-};
 
   return (
     <Card className="w-full max-w-5xl bg-[#131118] border border-[#232129] shadow-[0_0_50px_rgba(147,205,12,0.08)]">

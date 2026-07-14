@@ -1,18 +1,8 @@
 import Card from "../common/Card";
 import Button from "../common/Button";
-import { useLocation, useNavigate } from "react-router-dom";
-import type { InterviewResult } from "../../types/result";
-
-const strengths = [
-  "Strong communication skills",
-  "Clear technical explanations",
-  "Confident responses",
-];
-
-const improvements = [
-  "Give more measurable examples",
-  "Expand on project experience",
-];
+import { useNavigate } from "react-router-dom";
+//import type { InterviewResult } from "../../types/result";
+import { useSession } from "../../hooks/useSession";
 
 
 export default function ResultCard() {
@@ -20,9 +10,10 @@ export default function ResultCard() {
 
 
 
-const location = useLocation();
+//const location = useLocation();
 
-const result = location.state as InterviewResult | undefined;
+//const result = location.state as InterviewResult | undefined;
+const { result } = useSession();
 
 if (!result) {
     return (

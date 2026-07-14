@@ -9,28 +9,31 @@ import ExperienceCard from "./ExperienceCard";
 import ProjectsCard from "./ProjectsCard";
 import RecommendationCard from "./RecommendationCard";
 
-interface Candidate {
-  candidate_name: string;
-  skills: string[];
-  education: string[];
-  experience: string[];
-  projects: string[];
-  recommended_role: string;
-}
+import { useSession } from "../../hooks/useSession";
 
-interface Props {
-  candidate: Candidate;
-}
-
-export default function CandidateDashboard({
-  candidate,
-}: Props) {
+export default function CandidateDashboard() {
   const navigate = useNavigate();
+
+  const {
+    candidate,
+    interviewCompleted,
+  } = useSession();
+
+  if (!candidate) {
+    return (
+      <div className="text-center text-white">
+        No candidate loaded.
+      </div>
+    );
+  }
 
   return (
     <div className="mt-8 space-y-6">
+
       {/* Top Row */}
+
       <div className="grid gap-6 md:grid-cols-2">
+
         <CandidateCard
           name={candidate.candidate_name}
         />
@@ -38,10 +41,13 @@ export default function CandidateDashboard({
         <RecommendationCard
           role={candidate.recommended_role}
         />
+
       </div>
 
       {/* Middle Row */}
+
       <div className="grid gap-6 md:grid-cols-2">
+
         <SkillsCard
           skills={candidate.skills}
         />
@@ -49,10 +55,13 @@ export default function CandidateDashboard({
         <EducationCard
           education={candidate.education}
         />
+
       </div>
 
       {/* Bottom Row */}
+
       <div className="grid gap-6 md:grid-cols-2">
+
         <ExperienceCard
           experience={candidate.experience}
         />
@@ -60,16 +69,24 @@ export default function CandidateDashboard({
         <ProjectsCard
           projects={candidate.projects}
         />
+
       </div>
 
-      {/* Start Interview */}
+      {/* Interview Button */}
+
       <div className="pt-4">
+
         <Button
+          disabled={interviewCompleted}
           onClick={() => navigate("/interview")}
         >
-          🚀 Start AI Interview
+          {interviewCompleted
+            ? "✅ Interview Completed"
+            : "🚀 Start AI Interview"}
         </Button>
+
       </div>
+
     </div>
   );
 }

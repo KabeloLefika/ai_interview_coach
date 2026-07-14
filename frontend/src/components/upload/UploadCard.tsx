@@ -9,6 +9,11 @@ import UploadZone from "./UploadZone";
 import AnalysisLoader from "../analysis/AnalysisLoader";
 import CandidateDashboard from "../analysis/CandidateDashboard";
 
+import { useSession } from "../../hooks/useSession";
+
+import CompletedDashboard from "../analysis/CompletedDashboard";
+
+
 interface Candidate {
   candidate_name: string;
   skills: string[];
@@ -27,8 +32,12 @@ interface UploadResponse {
 export default function UploadCard() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const [candidate, setCandidate] = useState<Candidate | null>(null);
-
+  //const [candidate, setCandidate] = useState<Candidate | null>(null);
+  const {
+    candidate,
+    setCandidate,
+    interviewCompleted,
+  } = useSession();
   const uploadCV = async () => {
     if (!file) return;
 
@@ -62,7 +71,11 @@ export default function UploadCard() {
 
   // Show dashboard after upload
   if (candidate) {
-    return <CandidateDashboard candidate={candidate} />;
+    if (interviewCompleted) {
+      return <CompletedDashboard />;
+    }
+
+    return <CandidateDashboard />;
   }
 
   // Default upload screen
@@ -78,16 +91,19 @@ export default function UploadCard() {
 
       <UploadZone
         file={file}
+        disabled={interviewCompleted}
         onFileSelected={(selectedFile) => setFile(selectedFile)}
       />
 
       <div className="w-full rounded-2xl py-4 font-semibold text-#FEFEFE transition">
         <Button
           onClick={uploadCV}
-          disabled={!file}
-        >
-          Analyze Resume
-        </Button>
+          disabled={!file || interviewCompleted}
+>
+        {interviewCompleted
+    ? "✅ Interview Completed"
+    : "Analyze Resume"}
+</Button>
       </div>
     </Card>
   );
