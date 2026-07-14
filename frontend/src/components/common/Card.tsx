@@ -13,11 +13,11 @@ export default function Card({
     <div
       className={`
         rounded-3xl
-        bg-white
-        p-8
-        shadow-xl
+        bg-[#131118]
         border
-        border-slate-200
+        border-[#232129]
+        shadow-2xl
+        p-8
         ${className}
       `}
     >

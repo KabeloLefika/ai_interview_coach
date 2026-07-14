@@ -21,7 +21,7 @@ export default function RecommendationCard({
 
       </div>
 
-      <p className="mt-6 text-2xl font-bold text-green-600">
+      <p className="mt-6 text-2xl font-bold text-[#93CD0C]">
         {role}
       </p>
 

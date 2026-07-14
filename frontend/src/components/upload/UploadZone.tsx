@@ -44,7 +44,7 @@ export default function UploadZone({
 
           ${
             isDragActive
-              ? "border-blue-600 bg-blue-50 scale-[1.02]"
+              ? "border-[#93CD0C] bg-blue-50 scale-[1.02]"
               : "border-slate-300 hover:border-blue-500 hover:bg-slate-50"
           }
         `}
@@ -53,7 +53,7 @@ export default function UploadZone({
 
         <UploadCloud
           size={72}
-          className="mx-auto text-blue-600"
+          className="mx-auto text-[#93CD0C]"
         />
 
         <h3 className="mt-6 text-2xl font-bold text-slate-800">
