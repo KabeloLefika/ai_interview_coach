@@ -13,7 +13,7 @@ export default function SkillsCard({
 
       <div className="flex items-center gap-3">
 
-        <Code className="text-blue-600" />
+        <Code className="text-[#93CD0C]" />
 
         <h2 className="text-xl font-bold">
           Skills
@@ -31,7 +31,7 @@ export default function SkillsCard({
           skills.map((skill) => (
             <span
               key={skill}
-              className="rounded-full bg-blue-100 px-4 py-2 text-blue-700"
+              className="rounded-full bg-[#93CD0C]/20 px-4 py-2 text-blue-700"
             >
               {skill}
             </span>

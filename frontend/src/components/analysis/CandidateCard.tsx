@@ -28,7 +28,7 @@ export default function CandidateCard({
             Candidate
           </h2>
 
-          <p className="text-slate-600">
+          <p className="text-gray-400">
             {name}
           </p>
 

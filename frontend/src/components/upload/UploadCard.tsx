@@ -72,7 +72,7 @@ export default function UploadCard() {
         Upload Your Resume
       </h2>
 
-      <p className="mb-8 text-center text-slate-500">
+      <p className="mb-8 text-center text-gray-400">
         Upload your resume and let AI prepare a personalized interview.
       </p>
 
