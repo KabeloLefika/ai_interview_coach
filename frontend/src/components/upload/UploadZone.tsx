@@ -37,16 +37,14 @@ export default function UploadZone({
           rounded-3xl
           border-2
           border-dashed
+          border-[#93CD0C]
+          bg-[#131118]
           p-12
           transition-all
           duration-300
-          text-center
-
-          ${
-            isDragActive
-              ? "border-[#93CD0C] bg-blue-50 scale-[1.02]"
-              : "border-slate-300 hover:border-blue-500 hover:bg-slate-50"
-          }
+          
+          hover:bg-[#18151F]
+          hover:border-[#A6E312]
         `}
       >
         <input {...getInputProps()} />
@@ -56,15 +54,15 @@ export default function UploadZone({
           className="mx-auto text-[#93CD0C]"
         />
 
-        <h3 className="mt-6 text-2xl font-bold text-slate-800">
+        <h3 className="mt-6 text-2xl font-bold text-white">
           Drag & Drop your Resume
         </h3>
 
-        <p className="mt-2 text-slate-500">
+        <p className="mt-2 text-gray-400">
           or click to browse
         </p>
 
-        <p className="mt-6 text-sm text-slate-400">
+        <p className="mt-6 text-sm text-gray-400">
           PDF only • Maximum 5MB
         </p>
       </div>

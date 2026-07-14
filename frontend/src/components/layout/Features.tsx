@@ -12,7 +12,7 @@ export default function Features() {
       {features.map((feature) => (
         <div
           key={feature}
-          className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+          className="rounded-2xl bg-[#131118] border border-[#93CD0C] p-8 shadow-sm"
         >
           <h3 className="text-xl font-semibold">
             {feature}

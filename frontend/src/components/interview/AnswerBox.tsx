@@ -10,6 +10,7 @@ export default function AnswerBox({
 
     return (
 
+
         <textarea
             rows={8}
             value={value}
@@ -17,13 +18,16 @@ export default function AnswerBox({
                 onChange(e.target.value)
             }
             className="
-                mt-6
+                
                 w-full
-                rounded-xl
+                rounded-2xl
                 border
-                border-slate-300
-                p-4
-                focus:outline-none
+                border-[#232129]
+                bg-[#1A181F]
+                p-6
+                text-white
+                placeholder:text-gray-500
+                focus:border-[#93CD0C]
                 focus:ring-2
                 focus:ring-blue-500
             "

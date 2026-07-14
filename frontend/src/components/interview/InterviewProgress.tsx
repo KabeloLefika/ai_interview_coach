@@ -1,49 +1,32 @@
 interface Props {
-    current: number;
-    total: number;
+  current: number;
+  total: number;
 }
 
 export default function InterviewProgress({
-    current,
-    total,
+  current,
+  total,
 }: Props) {
+  const progress = Math.round((current / total) * 100);
 
-    const percentage =
-        (current / total) * 100;
+  return (
+    <div className="mt-8 mb-8">
+      <div className="mb-3 flex justify-between text-white">
+        <span className="font-medium">
+          Question {current} of {total}
+        </span>
 
-    return (
+        <span className="font-semibold text-[#93CD0C]">
+          {progress}% Complete
+        </span>
+      </div>
 
-        <div className="mb-8">
-
-            <div className="flex justify-between">
-
-                <span>
-
-                    Question {current}
-
-                </span>
-
-                <span>
-
-                    {total} Questions
-
-                </span>
-
-            </div>
-
-            <div className="mt-2 h-3 rounded-full bg-slate-200">
-
-                <div
-                    className="h-full rounded-full bg-blue-600 transition-all"
-                    style={{
-                        width: `${percentage}%`,
-                    }}
-                />
-
-            </div>
-
-        </div>
-
-    );
-
+      <div className="h-3 w-full rounded-full bg-[#232129]">
+        <div
+          className="h-3 rounded-full bg-[#93CD0C] transition-all duration-500"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+    </div>
+  );
 }

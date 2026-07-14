@@ -67,7 +67,7 @@ export default function UploadCard() {
 
   // Default upload screen
   return (
-    <Card className="mx-auto w-full max-w-3xl">
+    <Card className="bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)]">
       <h2 className="mb-3 text-center text-4xl font-bold">
         Upload Your Resume
       </h2>
@@ -81,7 +81,7 @@ export default function UploadCard() {
         onFileSelected={(selectedFile) => setFile(selectedFile)}
       />
 
-      <div className="mt-8">
+      <div className="w-full rounded-2xl py-4 font-semibold text-#FEFEFE transition">
         <Button
           onClick={uploadCV}
           disabled={!file}

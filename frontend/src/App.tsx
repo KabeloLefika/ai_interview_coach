@@ -6,6 +6,7 @@ import {
 
 import Home from "./pages/Home";
 import Interview from "./pages/Interview";
+import Results from "./pages/Results";
 
 export default function App() {
   return (
@@ -22,6 +23,10 @@ export default function App() {
           path="/interview"
           element={<Interview />}
         />
+
+        <Route 
+          path="/results" 
+          element={<Results />} />
 
       </Routes>
 
