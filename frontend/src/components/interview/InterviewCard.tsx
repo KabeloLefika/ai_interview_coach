@@ -10,6 +10,9 @@ import QuestionCard from "./QuestionCard";
 import AnswerBox from "./AnswerBox";
 import InterviewProgress from "./InterviewProgress";
 
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
+
 const questions = [
   "Tell me about yourself.",
   "Why are you interested in this role?",
@@ -56,7 +59,11 @@ const result = generateInterviewResult(
   }
 
   return (
+    <div className="min-h-screen bg-[#08070A]">
+      <Header />
+      
     <Card className="w-full max-w-5xl bg-[#131118] border border-[#232129] shadow-[0_0_50px_rgba(147,205,12,0.08)]">
+       
       <h1 className="mb-8 text-center text-4xl font-bold">
         AI Interview
       </h1>
@@ -92,5 +99,7 @@ const result = generateInterviewResult(
         </Button>
       </div>
     </Card>
+     <Footer />
+    </div>
   );
 }
