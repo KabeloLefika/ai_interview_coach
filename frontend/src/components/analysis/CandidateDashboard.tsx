@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import Button from "../common/Button";
 
@@ -12,7 +12,7 @@ import RecommendationCard from "./RecommendationCard";
 import { useSession } from "../../hooks/useSession";
 
 export default function CandidateDashboard() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const {
     candidate,
@@ -29,11 +29,8 @@ export default function CandidateDashboard() {
 
   return (
     <div className="mt-8 space-y-6">
-
       {/* Top Row */}
-
       <div className="grid gap-6 md:grid-cols-2">
-
         <CandidateCard
           name={candidate.candidate_name}
         />
@@ -41,52 +38,41 @@ export default function CandidateDashboard() {
         <RecommendationCard
           role={candidate.recommended_role}
         />
-
       </div>
 
       {/* Middle Row */}
-
       <div className="grid gap-6 md:grid-cols-2">
-
         <SkillsCard
-          skills={candidate.skills}
+          skills={candidate.skills || []}
         />
 
-        <EducationCard
-          education={candidate.education}
-        />
-
+        {/*<EducationCard
+          education={candidate.education || []}
+        />*/}
       </div>
 
       {/* Bottom Row */}
-
-      <div className="grid gap-6 md:grid-cols-2">
-
+      {/*<div className="grid gap-6 md:grid-cols-2">
         <ExperienceCard
-          experience={candidate.experience}
+          experience={candidate.experience || []}
         />
 
         <ProjectsCard
-          projects={candidate.projects}
+          projects={candidate.projects || []}
         />
-
-      </div>
+      </div>*/}
 
       {/* Interview Button */}
-
       <div className="pt-4">
-
         <Button
           disabled={interviewCompleted}
-          onClick={() => navigate("/interview")}
+          onClick={() => console.log("interview completed")}
         >
           {interviewCompleted
             ? "✅ Interview Completed"
             : "🚀 Start AI Interview"}
         </Button>
-
       </div>
-
     </div>
   );
 }

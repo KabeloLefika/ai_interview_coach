@@ -1,6 +1,6 @@
 //import { ReactNode } from "react";
 
-interface Props {
+interface CardProps {
   children: React.ReactNode;
   className?: string;
 }
@@ -8,16 +8,17 @@ interface Props {
 export default function Card({
   children,
   className = "",
-}: Props) {
+}: CardProps) {
   return (
     <div
       className={`
         rounded-3xl
-        bg-[#131118]
+        bg-[#15121B]
         border
         border-[#232129]
         shadow-2xl
         p-8
+        shadow-xl
         ${className}
       `}
     >

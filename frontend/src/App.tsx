@@ -1,35 +1,19 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-
+import { useState } from "react";
+import ConsentPage from "./pages/ConsentPage";
+import DeclinedPage from "./pages/DeclinedPage";
 import Home from "./pages/Home";
-import Interview from "./pages/Interview";
-import Results from "./pages/Results";
-
 export default function App() {
-  return (
-    <BrowserRouter>
-
-      <Routes>
-
-        <Route
-          path="/"
-          element={<Home />}
-        />
-
-        <Route
-          path="/interview"
-          element={<Interview />}
-        />
-
-        <Route 
-          path="/results" 
-          element={<Results />} />
-
-      </Routes>
-
-    </BrowserRouter>
-  );
+ const [page, setPage] = useState<"consent" | "home" | "declined">("consent");
+ return (
+<>
+     {page === "consent" && (
+<ConsentPage
+         onContinue={() => setPage("home")}
+         onDecline={() => setPage("declined")}
+       />
+     )}
+     {page === "home" && <Home />}
+     {page === "declined" && <DeclinedPage />}
+</>
+ );
 }
