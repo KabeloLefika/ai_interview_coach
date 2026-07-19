@@ -46,13 +46,13 @@ export default function CandidateDashboard() {
           skills={candidate.skills || []}
         />
 
-        {/*<EducationCard
+        <EducationCard
           education={candidate.education || []}
-        />*/}
+        />
       </div>
 
       {/* Bottom Row */}
-      {/*<div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         <ExperienceCard
           experience={candidate.experience || []}
         />
@@ -60,7 +60,7 @@ export default function CandidateDashboard() {
         <ProjectsCard
           projects={candidate.projects || []}
         />
-      </div>*/}
+      </div>
 
       {/* Interview Button */}
       <div className="pt-4">
