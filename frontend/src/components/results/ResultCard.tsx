@@ -1,200 +1,229 @@
 import Card from "../common/Card";
 import Button from "../common/Button";
-import { useNavigate } from "react-router-dom";
-//import type { InterviewResult } from "../../types/result";
 import { useSession } from "../../hooks/useSession";
-
+import api from "../../services/api";
 
 export default function ResultCard() {
-  const navigate = useNavigate();
+  const { candidate, report } = useSession();
 
+  if (!candidate || !report) {
+    return null;
+  }
 
+  const downloadReport = async () => {
+    try {
+      const response = await api.post(
+        "/download-report",
+        {
+          candidate,
+          report,
+        },
+        {
+          responseType: "blob",
+        }
+      );
 
-//const location = useLocation();
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], {
+          type: "application/pdf",
+        })
+      );
 
-//const result = location.state as InterviewResult | undefined;
-const { result } = useSession();
+      const link = document.createElement("a");
 
-if (!result) {
-    return (
-        <Card className="w-full max-w-3xl bg-[#131118] border border-[#232129] p-10 text-center">
-            <h2 className="text-3xl font-bold text-white">
-                No Interview Results Found
-            </h2>
+      link.href = url;
+      link.download = "AI_Interview_Report.pdf";
 
-            <p className="mt-4 text-gray-400">
-                Please complete an interview first.
-            </p>
+      document.body.appendChild(link);
 
-            <div className="mt-8">
-                <Button onClick={() => navigate("/home")}>
-                    Return to Dashboard
-                </Button>
-            </div>
-        </Card>
-    );
-}
+      link.click();
+
+      link.remove();
+
+      window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+      console.error(error);
+      alert("Unable to download report.");
+    }
+  };
 
   return (
-    <Card className="w-full max-w-4xl bg-[#131118] border border-[#232129] shadow-[0_0_50px_rgba(147,205,12,0.08)] p-10">
+    <Card className="w-full max-w-6xl bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)]">
 
-        {/*header*/}
-      <h1 className="text-center text-4xl font-bold text-white">
-        {result.candidateName}'s Interview Report
-      </h1>
+      {/* Header */}
 
-      <p className="mt-4 text-center text-gray-400">
-        AI generated interview summary
-      </p>
+      <div className="text-center">
 
-      {/* Score */}
+        <h1 className="text-5xl font-bold text-white">
+          AI Interview Coaching Report
+        </h1>
 
-      <div className="mt-10 text-center">
-
-        <p className="text-gray-400">
-          Overall Score
-        </p>
-
-        <h2 className="mt-3 text-7xl font-bold text-[#93CD0C]">
-          {result.score}%
-        </h2>
-
-        <p className="mt-3 text-xl text-white">
-          ⭐⭐⭐⭐☆ Excellent Candidate
+        <p className="mt-4 text-gray-400">
+          Personalized feedback generated from your interview.
         </p>
 
       </div>
 
-      {/* Score Cards */}
+      {/* Candidate Information */}
 
       <div className="mt-12 grid gap-6 md:grid-cols-2">
 
-        <ScoreCard title="Communication" score={result.communication} />
+        <div className="rounded-2xl bg-[#1A181F] border border-[#232129] p-6">
 
-        <ScoreCard title="Technical Knowledge" score={result.technical} />
+          <p className="text-gray-400">
+            Candidate
+          </p>
 
-        <ScoreCard title="Confidence" score={result.confidence} />
+          <h2 className="mt-2 text-2xl font-bold text-white">
+            {candidate.candidate_name}
+          </h2>
 
-        <ScoreCard title="Problem Solving" score={result.problemSolving} />
+        </div>
+
+        <div className="rounded-2xl bg-[#1A181F] border border-[#232129] p-6">
+
+          <p className="text-gray-400">
+            Recommended Role
+          </p>
+
+          <h2 className="mt-2 text-2xl font-bold text-[#93CD0C]">
+            {candidate.recommended_role}
+          </h2>
+
+        </div>
 
       </div>
 
-      {/* Feedback */}
+      {/* Summary */}
 
-      <div className="mt-12 grid gap-8 md:grid-cols-2">
+      <div className="mt-10">
 
-        <FeedbackCard
-          title="Strengths"
-          items={result.strengths}
-        />
+        <h2 className="text-3xl font-bold text-white">
+          Interview Summary
+        </h2>
 
-        <FeedbackCard
-          title="Areas for Improvement"
-          items={result.improvements}
-        />
+        <p className="mt-4 text-gray-300 leading-8">
+          {report.summary}
+        </p>
+
+      </div>
+
+      {/* Strengths */}
+
+      <div className="mt-10">
+
+        <h2 className="text-3xl font-bold text-[#93CD0C]">
+          Your Strengths
+        </h2>
+
+        <ul className="mt-4 space-y-3">
+
+          {report.strengths.map((item) => (
+
+            <li
+              key={item}
+              className="rounded-xl bg-[#1A181F] border border-[#232129] p-4 text-white"
+            >
+              ✅ {item}
+            </li>
+
+          ))}
+
+        </ul>
+
+      </div>
+
+      {/* Improvements */}
+
+      <div className="mt-10">
+
+        <h2 className="text-3xl font-bold text-orange-400">
+          Areas for Improvement
+        </h2>
+
+        <ul className="mt-4 space-y-3">
+
+          {report.improvements.map((item) => (
+
+            <li
+              key={item}
+              className="rounded-xl bg-[#1A181F] border border-[#232129] p-4 text-white"
+            >
+              • {item}
+            </li>
+
+          ))}
+
+        </ul>
 
       </div>
 
       {/* Recommended Role */}
 
-      <div className="mt-12 rounded-2xl border border-[#93CD0C] bg-[#1A181F] p-8 text-center">
+      <div className="mt-10">
 
-        <p className="text-gray-400">
-          Recommended Role
-        </p>
-
-        <h2 className="mt-2 text-4xl font-bold text-[#93CD0C]">
-          {result.recommendedRole}
+        <h2 className="text-3xl font-bold text-white">
+          About This Role
         </h2>
+
+        <p className="mt-4 text-gray-300 leading-8">
+          {report.role_overview}
+        </p>
 
       </div>
 
-      {/* Buttons */}
+      {/* Learning Path */}
 
-      <div className="mt-12 flex justify-center gap-6">
+      <div className="mt-10">
 
-        <Button>
-          Download Report
-        </Button>
+        <h2 className="text-3xl font-bold text-white">
+          Suggested Learning Path
+        </h2>
+
+        <ul className="mt-4 space-y-3">
+
+          {report.learning_path.map((item) => (
+
+            <li
+              key={item}
+              className="rounded-xl bg-[#1A181F] border border-[#232129] p-4 text-white"
+            >
+              📚 {item}
+            </li>
+
+          ))}
+
+        </ul>
+
+      </div>
+
+      {/* Final Feedback */}
+
+      <div className="mt-10 rounded-2xl border border-[#93CD0C] bg-[#1A181F] p-8">
+
+        <h2 className="text-3xl font-bold text-[#93CD0C]">
+          Final Feedback
+        </h2>
+
+        <p className="mt-5 text-gray-300 leading-8">
+          {report.final_feedback}
+        </p>
+
+      </div>
+
+      {/* Download Button */}
+
+      <div className="mt-12 flex justify-center">
 
         <Button
-          onClick={() => navigate("/")}
+          onClick={downloadReport}
         >
-          Return to Dashboard
+          📄 Download PDF Report
         </Button>
 
       </div>
 
     </Card>
-  );
-}
-
-/* -------------------- */
-
-function ScoreCard({
-  title,
-  score,
-}: {
-  title: string;
-  score: number;
-}) {
-  return (
-    <div className="rounded-2xl border border-[#232129] bg-[#1A181F] p-6">
-
-      <div className="flex justify-between">
-
-        <span className="text-white font-semibold">
-          {title}
-        </span>
-
-        <span className="text-[#93CD0C] font-bold">
-          {score}%
-        </span>
-
-      </div>
-
-      <div className="mt-4 h-3 rounded-full bg-[#232129]">
-
-        <div
-          className="h-3 rounded-full bg-[#93CD0C]"
-          style={{ width: `${score}%` }}
-        />
-
-      </div>
-
-    </div>
-  );
-}
-
-/* -------------------- */
-
-function FeedbackCard({
-  title,
-  items,
-}: {
-  title: string;
-  items: string[];
-}) {
-  return (
-    <div className="rounded-2xl border border-[#232129] bg-[#1A181F] p-6">
-
-      <h3 className="mb-5 text-2xl font-bold text-white">
-        {title}
-      </h3>
-
-      <ul className="space-y-4">
-
-        {items.map((item) => (
-          <li
-            key={item}
-            className="text-gray-300"
-          >
-            ✓ {item}
-          </li>
-        ))}
-
-      </ul>
-
-    </div>
   );
 }

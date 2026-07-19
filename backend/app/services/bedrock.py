@@ -198,4 +198,80 @@ Example:
     text = response_body["content"][0]["text"]
 
     return json.loads(text)
+
+
+def evaluate_interview(candidate: dict, questions: list[str], answers: list[str]):
+    prompt = f"""
+You are an experienced technical interviewer and career coach.
+
+You have the following candidate profile.
+
+Name:
+{candidate["candidate_name"]}
+
+Recommended Role:
+{candidate["recommended_role"]}
+
+Skills:
+{", ".join(candidate["skills"])}
+
+Interview Questions and Answers:
+
+"""
+
+    for i, (question, answer) in enumerate(zip(questions, answers), start=1):
+        prompt += f"""
+
+Question {i}
+{question}
+
+Answer
+{answer}
+"""
+
+    prompt += """
+
+Evaluate the interview as a whole.
+
+DO NOT assign any score, percentage or rating.
+
+Return ONLY valid JSON in the following format:
+
+{
+    "summary": "",
+    "strengths": [],
+    "improvements": [],
+    "role_overview": "",
+    "learning_path": [],
+    "final_feedback": ""
+}
+"""
+
+    body = {
+        "anthropic_version": "bedrock-2023-05-31",
+        "max_tokens": 1200,
+        "temperature": 0.3,
+        "messages": [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": prompt
+                    }
+                ]
+            }
+        ]
+    }
+
+    response = bedrock.invoke_model(
+        modelId=MODEL_ID,
+        body=json.dumps(body)
+    )
+
+    response_body = json.loads(response["body"].read())
+
+    text = response_body["content"][0]["text"]
+
+    return json.loads(text)
  

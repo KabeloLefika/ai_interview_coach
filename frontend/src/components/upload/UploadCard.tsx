@@ -62,10 +62,6 @@ export default function UploadCard() {
 
   // Show dashboard after upload
   if (candidate) {
-    if (interviewCompleted) {
-      return <CompletedDashboard />;
-    }
-
     return <CandidateDashboard />;
   }
 

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { generateInterviewResult } from "../../services/interviewResult";
+import api from "../../services/api";
+
 import { useSession } from "../../hooks/useSession";
 
 import Card from "../common/Card";
@@ -15,19 +16,23 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
 export default function InterviewCard() {
+
   const navigate = useNavigate();
 
   const {
     candidate,
     questions,
-    setResult,
+    setReport,
     setInterviewCompleted,
   } = useSession();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answer, setAnswer] = useState("");
+  const [answers, setAnswers] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+
     if (!candidate) {
       navigate("/home");
       return;
@@ -36,6 +41,7 @@ export default function InterviewCard() {
     if (!questions || questions.length === 0) {
       navigate("/home");
     }
+
   }, [candidate, questions, navigate]);
 
   if (!candidate || questions.length === 0) {
@@ -44,25 +50,55 @@ export default function InterviewCard() {
 
   const totalQuestions = questions.length;
 
-  const nextQuestion = () => {
+  const nextQuestion = async () => {
+
+    const updatedAnswers = [...answers, answer];
+
+    setAnswers(updatedAnswers);
+
     if (currentQuestion < totalQuestions - 1) {
+
       setCurrentQuestion(currentQuestion + 1);
       setAnswer("");
+
       return;
     }
 
-    const result = generateInterviewResult(
-      candidate.candidate_name,
-      candidate.recommended_role
-    );
+    try {
 
-    setResult(result);
-    setInterviewCompleted(true);
+      setLoading(true);
 
-    navigate("/results");
+      const response = await api.post(
+        "/evaluate-interview",
+        {
+          candidate,
+          questions,
+          answers: updatedAnswers,
+        }
+      );
+
+      setReport(response.data);
+
+      setInterviewCompleted(true);
+
+      navigate("/results");
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert("Failed to evaluate interview.");
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
   };
 
   return (
+
     <div className="min-h-screen bg-[#08070A] flex flex-col">
 
       <Header />
@@ -89,21 +125,27 @@ export default function InterviewCard() {
           />
 
           <div className="mt-8">
+
             <AnswerBox
               value={answer}
               onChange={setAnswer}
             />
+
           </div>
 
           <div className="mt-8 flex justify-end">
+
             <Button
               onClick={nextQuestion}
-              disabled={answer.trim() === ""}
+              disabled={answer.trim() === "" || loading}
             >
-              {currentQuestion === totalQuestions - 1
+              {loading
+                ? "Generating Report..."
+                : currentQuestion === totalQuestions - 1
                 ? "Finish Interview"
                 : "Next Question"}
             </Button>
+
           </div>
 
         </Card>
@@ -113,5 +155,7 @@ export default function InterviewCard() {
       <Footer />
 
     </div>
+
   );
+
 }

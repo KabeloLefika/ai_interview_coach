@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import type { ReactNode } from "react";
-import type { InterviewResult } from "../types/result";
+//import type { InterviewResult } from "../types/result";
 
 export interface Education {
   degree: string;
@@ -29,12 +29,24 @@ export interface Candidate {
   recommended_role: string;
 }
 
+export interface InterviewReport {
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+  role_overview: string;
+  learning_path: string[];
+  final_feedback: string;
+}
+
 interface SessionContextType {
   candidate: Candidate | null;
   setCandidate: (candidate: Candidate | null) => void;
 
-  result: InterviewResult | null;
-  setResult: (result: InterviewResult | null) => void;
+  //result: InterviewResult | null;
+  //setResult: (result: InterviewResult | null) => void;
+
+  report: InterviewReport | null;
+  setReport: (report: InterviewReport | null) => void;
 
   questions: string[];
   setQuestions: (questions: string[]) => void;
@@ -57,8 +69,11 @@ export function SessionProvider({ children }: Props) {
   const [candidate, setCandidate] =
     useState<Candidate | null>(null);
 
-  const [result, setResult] =
-    useState<InterviewResult | null>(null);
+  //const [result, setResult] =
+    //useState<InterviewResult | null>(null);
+
+  const [report, setReport] =
+    useState<InterviewReport | null>(null);
 
   const [questions, setQuestions] =
     useState<string[]>([]);
@@ -68,7 +83,8 @@ export function SessionProvider({ children }: Props) {
 
   function resetSession() {
     setCandidate(null);
-    setResult(null);
+    //setResult(null);
+    setReport(null);
     setQuestions([]);
     setInterviewCompleted(false);
   }
@@ -79,8 +95,11 @@ export function SessionProvider({ children }: Props) {
         candidate,
         setCandidate,
 
-        result,
-        setResult,
+        //result,
+        //setResult,
+
+        report,
+        setReport,
 
         questions,
         setQuestions,
