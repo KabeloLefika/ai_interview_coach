@@ -10,6 +10,7 @@ import ProjectsCard from "./ProjectsCard";
 import RecommendationCard from "./RecommendationCard";
 
 import { useSession } from "../../hooks/useSession";
+import api from "../../services/api";
 
 export default function CandidateDashboard() {
    const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function CandidateDashboard() {
   const {
     candidate,
     interviewCompleted,
+    setQuestions,
   } = useSession();
 
   if (!candidate) {
@@ -26,6 +28,22 @@ export default function CandidateDashboard() {
       </div>
     );
   }
+
+   const startInterview = async () => {
+    try {
+      const response = await api.post(
+        "/generate-interview",
+        candidate
+      );
+
+      setQuestions(response.data.questions);
+
+      navigate("/interview");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to generate interview questions.");
+    }
+  };
 
   return (
     <div className="mt-8 space-y-6">
@@ -66,7 +84,7 @@ export default function CandidateDashboard() {
       <div className="pt-4">
         <Button
             disabled={interviewCompleted}
-            onClick={() => navigate("/interview")}
+            onClick={startInterview}
         >
           {interviewCompleted
             ? "✅ Interview Completed"
