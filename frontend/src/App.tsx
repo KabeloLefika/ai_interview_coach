@@ -5,6 +5,7 @@ import DeclinedPage from "./pages/DeclinedPage";
 import Home from "./pages/Home";
 import Interview from "./pages/Interview";
 import Results from "./pages/Results";
+import ThankYou from "./pages/ThankYou";
 
 export default function App() {
   return (
@@ -33,6 +34,11 @@ export default function App() {
       <Route
         path="/declined"
         element={<DeclinedPage />}
+      />
+
+      <Route
+        path="/thank-you"
+        element={<ThankYou />}
       />
 
     </Routes>

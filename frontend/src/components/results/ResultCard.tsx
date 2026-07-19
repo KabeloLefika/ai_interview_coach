@@ -234,6 +234,11 @@ export default function ResultCard() {
           {report.final_feedback}
         </p>
 
+        <p className="mt-8 text-center text-gray-400">
+            Your personalized coaching report can be downloaded as a PDF.
+            Once downloaded you will be taken to the closing screen.
+        </p>
+
       </div>
 
       {/* Download Button */}
