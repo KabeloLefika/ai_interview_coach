@@ -10,18 +10,9 @@ import AnalysisLoader from "../analysis/AnalysisLoader";
 import CandidateDashboard from "../analysis/CandidateDashboard";
 
 import { useSession } from "../../hooks/useSession";
+import type { Candidate } from "../../context/SessionContext";
 
 import CompletedDashboard from "../analysis/CompletedDashboard";
-
-
-interface Candidate {
-  candidate_name: string;
-  skills: string[];
-  education: string[];
-  experience: string[];
-  projects: string[];
-  recommended_role: string;
-}
 
 interface UploadResponse {
   message: string;

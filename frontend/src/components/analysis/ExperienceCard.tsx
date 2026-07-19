@@ -1,42 +1,45 @@
 import { Briefcase } from "lucide-react";
 import Card from "../common/Card";
+import type { Experience } from "../../context/SessionContext";
 
 interface Props {
-  experience: string[];
+  experience: Experience[];
 }
 
-export default function ExperienceCard({
-  experience,
-}: Props) {
+export default function ExperienceCard({ experience }: Props) {
   return (
     <Card>
-
       <div className="flex items-center gap-3">
-
         <Briefcase className="text-blue-600" />
 
         <h2 className="text-xl font-bold">
           Experience
         </h2>
-
       </div>
 
-      <ul className="mt-5 space-y-3">
-
+      <div className="mt-5 space-y-5">
         {experience.length === 0 ? (
-          <li className="text-slate-500">
-            No experience found.
-          </li>
+          <p>No experience found.</p>
         ) : (
-          experience.map((job) => (
-            <li key={job}>
-              {job}
-            </li>
+          experience.map((job, index) => (
+            <div key={index}>
+              <p className="font-semibold">
+                {job.role}
+              </p>
+
+              <p>{job.company}</p>
+
+              <p className="text-sm text-gray-400">
+                {job.duration}
+              </p>
+
+              <p className="text-sm">
+                {job.responsibilities}
+              </p>
+            </div>
           ))
         )}
-
-      </ul>
-
+      </div>
     </Card>
   );
 }

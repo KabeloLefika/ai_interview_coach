@@ -28,9 +28,9 @@ export default function SkillsCard({
             No skills detected.
           </p>
         ) : (
-          skills.map((skill) => (
+          skills.map((skill,index) => (
             <span
-              key={skill}
+              key={`${skill}-${index}`}
               className="rounded-full bg-[#93CD0C]/20 px-4 py-2 text-blue-700"
             >
               {skill}

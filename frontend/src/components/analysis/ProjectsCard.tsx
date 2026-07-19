@@ -1,42 +1,44 @@
 import { FolderKanban } from "lucide-react";
 import Card from "../common/Card";
+import type { Project } from "../../context/SessionContext";
 
 interface Props {
-  projects: string[];
+  projects: Project[];
 }
 
-export default function ProjectsCard({
-  projects,
-}: Props) {
+export default function ProjectsCard({ projects }: Props) {
   return (
     <Card>
-
       <div className="flex items-center gap-3">
-
         <FolderKanban className="text-blue-600" />
 
         <h2 className="text-xl font-bold">
           Projects
         </h2>
-
       </div>
 
-      <ul className="mt-5 space-y-3">
-
+      <div className="mt-5 space-y-4">
         {projects.length === 0 ? (
-          <li className="text-slate-500">
-            No projects detected.
-          </li>
+          <p>No projects found.</p>
         ) : (
-          projects.map((project) => (
-            <li key={project}>
-              {project}
-            </li>
+          projects.map((project, index) => (
+            <div key={index}>
+              <p className="font-semibold">
+                {project.title}
+              </p>
+
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-500 underline break-all"
+              >
+                {project.link}
+              </a>
+            </div>
           ))
         )}
-
-      </ul>
-
+      </div>
     </Card>
   );
 }

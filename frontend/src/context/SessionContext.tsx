@@ -2,12 +2,30 @@ import { createContext, useState } from "react";
 import type { ReactNode } from "react";
 import type { InterviewResult } from "../types/result";
 
+export interface Education {
+  degree: string;
+  institution: string;
+  graduation_year: number;
+}
+
+export interface Experience {
+  role: string;
+  company: string;
+  duration: string;
+  responsibilities: string;
+}
+
+export interface Project {
+  title: string;
+  link: string;
+}
+
 export interface Candidate {
   candidate_name: string;
   skills: string[];
-  education: string[];
-  experience: string[];
-  projects: string[];
+  education: Education[];
+  experience: Experience[];
+  projects: Project[];
   recommended_role: string;
 }
 
