@@ -27,8 +27,8 @@ if (!result) {
             </p>
 
             <div className="mt-8">
-                <Button onClick={() => navigate("/")}>
-                    Return Home
+                <Button onClick={() => navigate("/home")}>
+                    Return to Dashboard
                 </Button>
             </div>
         </Card>

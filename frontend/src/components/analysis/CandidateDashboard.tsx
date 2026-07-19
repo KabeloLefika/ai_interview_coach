@@ -1,4 +1,4 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../common/Button";
 
@@ -12,7 +12,7 @@ import RecommendationCard from "./RecommendationCard";
 import { useSession } from "../../hooks/useSession";
 
 export default function CandidateDashboard() {
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const {
     candidate,
@@ -65,8 +65,8 @@ export default function CandidateDashboard() {
       {/* Interview Button */}
       <div className="pt-4">
         <Button
-          disabled={interviewCompleted}
-          onClick={() => console.log("interview completed")}
+            disabled={interviewCompleted}
+            onClick={() => navigate("/interview")}
         >
           {interviewCompleted
             ? "✅ Interview Completed"

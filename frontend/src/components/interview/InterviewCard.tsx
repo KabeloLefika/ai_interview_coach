@@ -42,7 +42,7 @@ export default function InterviewCard() {
     setAnswer("");
   } else {
     if (!candidate) {
-  navigate("/");
+  navigate("/home");
   return;
 }
 
