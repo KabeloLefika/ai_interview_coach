@@ -97,6 +97,22 @@ Resume:
 
 
 def generate_interview_questions(candidate: dict):
+
+    skills = ", ".join(candidate.get("skills", []))
+
+    education = "\n".join(
+        str(item) for item in candidate.get("education", [])
+    )
+
+    experience = "\n".join(
+        str(item) for item in candidate.get("experience", [])
+    )
+
+    projects = "\n".join(
+        str(item) for item in candidate.get("projects", [])
+    )
+
+
     prompt = f"""
 You are an experienced technical interviewer.
 
@@ -111,16 +127,16 @@ Recommended Role:
 {candidate["recommended_role"]}
 
 Skills:
-{", ".join(candidate["skills"])}
+{skills}
 
 Education:
-{", ".join(candidate["education"])}
+{education}
 
 Experience:
-{", ".join(candidate["experience"])}
+{experience}
 
 Projects:
-{", ".join(candidate["projects"])}
+{projects}
 
 Requirements:
 
