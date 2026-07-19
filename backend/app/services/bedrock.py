@@ -81,6 +81,21 @@ Resume:
 
     }
 
+    response = bedrock.invoke_model(
+        modelId=MODEL_ID,
+        body=json.dumps(body),
+    )
+
+    response_body = json.loads(
+        response["body"].read()
+    )
+
+    text = response_body["content"][0]["text"]
+
+    return json.loads(text)
+
+
+
 def generate_interview_questions(candidate: dict):
     prompt = f"""
 You are an experienced technical interviewer.
