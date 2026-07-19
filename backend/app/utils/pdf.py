@@ -1,50 +1,84 @@
 from io import BytesIO
+from datetime import datetime
 
+from reportlab.lib import colors
 from reportlab.lib.colors import HexColor
+from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
 from reportlab.platypus import (
     SimpleDocTemplate,
     Paragraph,
     Spacer,
+    Table,
+    TableStyle,
+    PageBreak,
 )
 
+DELOITTE_GREEN = HexColor("#93CD0C")
+BACKGROUND = HexColor("#F8F9FA")
+DARK = HexColor("#1B1B1B")
+GREY = HexColor("#666666")
 
-GREEN = HexColor("#93CD0C")
+
+def footer(canvas, doc):
+    canvas.saveState()
+
+    canvas.setFont("Helvetica", 9)
+    canvas.setFillColor(GREY)
+
+    canvas.drawString(
+        40,
+        25,
+        "Generated securely using Amazon Bedrock"
+    )
+
+    canvas.drawRightString(
+        555,
+        25,
+        datetime.now().strftime("%d %B %Y")
+    )
+
+    canvas.restoreState()
 
 
 def build_report(candidate, report):
 
     buffer = BytesIO()
 
-    doc = SimpleDocTemplate(buffer)
+    doc = SimpleDocTemplate(
+        buffer,
+        rightMargin=40,
+        leftMargin=40,
+        topMargin=40,
+        bottomMargin=50,
+    )
 
     styles = getSampleStyleSheet()
 
+    title = styles["Heading1"]
+    title.alignment = TA_CENTER
+    title.textColor = DELOITTE_GREEN
+    title.fontSize = 30
+
+    heading = styles["Heading2"]
+    heading.textColor = DELOITTE_GREEN
+
+    body = styles["BodyText"]
+    body.leading = 22
+
     story = []
 
-    title = styles["Heading1"]
-    title.textColor = GREEN
+    # ------------------------------------------------------------------
+    # COVER PAGE
+    # ------------------------------------------------------------------
+
+    story.append(Spacer(1, 0.5 * inch))
 
     story.append(
         Paragraph(
-            "AI Interview Coaching Report",
+            "<font size='34'><b>Deloitte</b></font>",
             title,
-        )
-    )
-
-    story.append(Spacer(1, 18))
-
-    story.append(
-        Paragraph(
-            f"<b>Candidate:</b> {candidate['candidate_name']}",
-            styles["Normal"],
-        )
-    )
-
-    story.append(
-        Paragraph(
-            f"<b>Recommended Role:</b> {candidate['recommended_role']}",
-            styles["Normal"],
         )
     )
 
@@ -52,102 +86,232 @@ def build_report(candidate, report):
 
     story.append(
         Paragraph(
-            "<b>Interview Summary</b>",
-            styles["Heading2"],
+            "<font size='24'><b>AI Career Coach Report</b></font>",
+            title,
         )
     )
+
+    story.append(Spacer(1, 10))
+
+    story.append(
+        Paragraph(
+            "<font color='#666666' size='16'>Powered by Amazon Bedrock</font>",
+            styles["Title"],
+        )
+    )
+
+    story.append(Spacer(1, 60))
+
+    candidate_table = Table(
+        [
+            ["Candidate", candidate["candidate_name"]],
+            ["Recommended Role", candidate["recommended_role"]],
+            [
+                "Generated",
+                datetime.now().strftime("%d %B %Y"),
+            ],
+        ],
+        colWidths=[160, 280],
+    )
+
+    candidate_table.setStyle(
+        TableStyle([
+            ("BACKGROUND", (0, 0), (0, -1), DELOITTE_GREEN),
+            ("TEXTCOLOR", (0, 0), (0, -1), colors.white),
+
+            ("BACKGROUND", (1, 0), (1, -1), BACKGROUND),
+
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+
+            ("FONTNAME", (0, 0), (-1, -1), "Helvetica-Bold"),
+
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 12),
+            ("TOPPADDING", (0, 0), (-1, -1), 12),
+        ])
+    )
+
+    story.append(candidate_table)
+
+    story.append(Spacer(1, 80))
+
+    story.append(
+        Paragraph(
+            """
+            This report was generated using Amazon Bedrock and is intended
+            to provide career guidance and interview coaching.
+
+            It does not constitute an offer of employment or a recruitment
+            decision.
+            """,
+            body,
+        )
+    )
+
+    story.append(PageBreak())
+
+    # ------------------------------------------------------------------
+    # EXECUTIVE SUMMARY
+    # ------------------------------------------------------------------
+
+    story.append(
+        Paragraph(
+            "Executive Summary",
+            heading,
+        )
+    )
+
+    story.append(Spacer(1, 10))
 
     story.append(
         Paragraph(
             report["summary"],
-            styles["BodyText"],
+            body,
         )
     )
 
-    story.append(Spacer(1, 16))
+    story.append(Spacer(1, 25))
+
+    # ------------------------------------------------------------------
+    # STRENGTHS
+    # ------------------------------------------------------------------
 
     story.append(
         Paragraph(
-            "<b>Strengths</b>",
-            styles["Heading2"],
+            "Strengths",
+            heading,
         )
     )
 
-    for item in report["strengths"]:
+    story.append(Spacer(1, 8))
+
+    for strength in report["strengths"]:
         story.append(
             Paragraph(
-                f"• {item}",
-                styles["BodyText"],
+                f"✓ {strength}",
+                body,
             )
         )
 
-    story.append(Spacer(1, 16))
+    story.append(Spacer(1, 25))
+
+    # ------------------------------------------------------------------
+    # IMPROVEMENTS
+    # ------------------------------------------------------------------
 
     story.append(
         Paragraph(
-            "<b>Areas for Improvement</b>",
-            styles["Heading2"],
+            "Growth Opportunities",
+            heading,
         )
     )
 
-    for item in report["improvements"]:
+    story.append(Spacer(1, 8))
+
+    for improvement in report["improvements"]:
         story.append(
             Paragraph(
-                f"• {item}",
-                styles["BodyText"],
+                f"• {improvement}",
+                body,
             )
         )
 
-    story.append(Spacer(1, 16))
+    story.append(Spacer(1, 25))
+
+    # ------------------------------------------------------------------
+    # ROLE
+    # ------------------------------------------------------------------
 
     story.append(
         Paragraph(
-            "<b>About the Recommended Role</b>",
-            styles["Heading2"],
+            "About Your Recommended Role",
+            heading,
         )
     )
+
+    story.append(Spacer(1, 8))
 
     story.append(
         Paragraph(
             report["role_overview"],
-            styles["BodyText"],
+            body,
         )
     )
 
-    story.append(Spacer(1, 16))
+    story.append(Spacer(1, 25))
+
+    # ------------------------------------------------------------------
+    # LEARNING
+    # ------------------------------------------------------------------
 
     story.append(
         Paragraph(
-            "<b>Suggested Learning Path</b>",
-            styles["Heading2"],
+            "Suggested Learning Path",
+            heading,
         )
     )
+
+    story.append(Spacer(1, 8))
 
     for item in report["learning_path"]:
         story.append(
             Paragraph(
                 f"• {item}",
-                styles["BodyText"],
+                body,
             )
         )
 
-    story.append(Spacer(1, 16))
+    story.append(Spacer(1, 25))
+
+    # ------------------------------------------------------------------
+    # FINAL FEEDBACK
+    # ------------------------------------------------------------------
 
     story.append(
         Paragraph(
-            "<b>Final Feedback</b>",
-            styles["Heading2"],
+            "Final Feedback",
+            heading,
         )
     )
+
+    story.append(Spacer(1, 8))
 
     story.append(
         Paragraph(
             report["final_feedback"],
-            styles["BodyText"],
+            body,
         )
     )
 
-    doc.build(story)
+    story.append(Spacer(1, 40))
+
+    story.append(
+        Paragraph(
+            "<b>Thank you for participating in the AI Career Coach demonstration.</b>",
+            styles["Title"],
+        )
+    )
+
+    story.append(Spacer(1, 15))
+
+    story.append(
+        Paragraph(
+            """
+            This report has been generated for educational and career guidance
+            purposes only.
+
+            Personal information supplied during this demonstration is processed
+            in accordance with the Protection of Personal Information Act (POPIA)
+            and is not used to train any Large Language Model or AI model.
+            """,
+            body,
+        )
+    )
+
+    doc.build(
+        story,
+        onFirstPage=footer,
+        onLaterPages=footer,
+    )
 
     pdf = buffer.getvalue()
 
