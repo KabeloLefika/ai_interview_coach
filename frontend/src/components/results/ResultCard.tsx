@@ -2,51 +2,75 @@ import Card from "../common/Card";
 import Button from "../common/Button";
 import { useSession } from "../../hooks/useSession";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function ResultCard() {
-  const { candidate, report } = useSession();
+  const navigate = useNavigate();
+
+  const {
+    candidate,
+    report,
+  } = useSession();
 
   if (!candidate || !report) {
     return null;
   }
 
   const downloadReport = async () => {
-    try {
-      const response = await api.post(
-        "/download-report",
-        {
-          candidate,
-          report,
-        },
-        {
-          responseType: "blob",
-        }
-      );
+  try {
 
-      const url = window.URL.createObjectURL(
-        new Blob([response.data], {
+    const response = await api.post(
+      "/download-report",
+      {
+        candidate,
+        report,
+      },
+      {
+        responseType: "blob",
+      }
+    );
+
+    const url = window.URL.createObjectURL(
+      new Blob(
+        [response.data],
+        {
           type: "application/pdf",
-        })
-      );
+        }
+      )
+    );
 
-      const link = document.createElement("a");
+    const link = document.createElement("a");
 
-      link.href = url;
-      link.download = "AI_Interview_Report.pdf";
+    link.href = url;
 
-      document.body.appendChild(link);
+    link.download =
+      `${candidate.candidate_name.replace(/\s+/g, "_")}_AI_Report.pdf`;
 
-      link.click();
+    document.body.appendChild(link);
 
-      link.remove();
+    link.click();
 
-      window.URL.revokeObjectURL(url);
+    link.remove();
 
-    } catch (error) {
-      console.error(error);
-      alert("Unable to download report.");
-    }
-  };
+    window.URL.revokeObjectURL(url);
+
+    // Give the browser a moment to start the download
+    setTimeout(() => {
+
+      navigate("/thank-you");
+
+    }, 700);
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    alert("Unable to download report.");
+
+  }
+};
 
   return (
     <Card className="w-full max-w-6xl bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)]">
@@ -219,7 +243,7 @@ export default function ResultCard() {
         <Button
           onClick={downloadReport}
         >
-          📄 Download PDF Report
+          📄 Download Personalized Report
         </Button>
 
       </div>
