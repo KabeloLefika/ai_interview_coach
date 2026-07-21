@@ -12,7 +12,7 @@ import CandidateDashboard from "../analysis/CandidateDashboard";
 import { useSession } from "../../hooks/useSession";
 import type { Candidate } from "../../context/SessionContext";
 
-import CompletedDashboard from "../analysis/CompletedDashboard";
+//import CompletedDashboard from "../analysis/CompletedDashboard";
 
 interface UploadResponse {
   message: string;
@@ -67,12 +67,25 @@ export default function UploadCard() {
 
   // Default upload screen
   return (
-    <Card className="bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)]">
-      <h2 className="mb-3 text-center text-4xl font-bold">
+    <Card
+    className="
+      w-full
+      max-w-5xl
+      mx-auto
+      bg-[#131118]
+      border
+      border-[#232129]
+      shadow-[0_0_40px_rgba(147,205,12,0.08)]
+      p-6
+      sm:p-8
+      lg:p-10
+    "
+  >
+     <h2 className="mb-3 text-center text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
         Upload Your Resume
       </h2>
 
-      <p className="mb-8 text-center text-gray-400">
+      <p className="mb-8 text-center text-sm sm:text-base text-gray-400">
         Upload your resume and let AI prepare a personalized interview.
       </p>
 
@@ -82,7 +95,7 @@ export default function UploadCard() {
         onFileSelected={(selectedFile) => setFile(selectedFile)}
       />
 
-      <div className="w-full rounded-2xl py-4 font-semibold text-#FEFEFE transition">
+     <div className="mt-8">
         <Button
           onClick={uploadCV}
           disabled={!file || interviewCompleted}

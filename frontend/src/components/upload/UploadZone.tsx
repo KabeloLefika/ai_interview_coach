@@ -42,7 +42,10 @@ export default function UploadZone({
           rounded-3xl
           border-2
           border-dashed
-          p-12
+          p-6
+          sm:p-8
+          md:p-10
+          lg:p-12
           transition-all
           duration-300
 
@@ -57,30 +60,30 @@ export default function UploadZone({
 
         {disabled ? (
           <Lock
-            size={72}
-            className="mx-auto text-gray-500"
+            size={48}
+            className="mx-auto text-gray-500 sm:w-16 sm:h-16"
           />
         ) : (
           <UploadCloud
-            size={72}
-            className="mx-auto text-[#93CD0C]"
+            size={48}
+            className="mx-auto text-[#93CD0C] sm:w-16 sm:h-16"
           />
         )}
 
-        <h3 className="mt-6 text-2xl font-bold text-white">
+        <h3 className="mt-6 text-xl sm:text-2xl font-bold text-white text-center">
           {disabled
             ? "Resume Upload Locked"
             : "Drag & Drop your Resume"}
         </h3>
 
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-center text-gray-400 text-sm sm:text-base">
           {disabled
             ? "This interview has already been completed."
             : "or click to browse"}
         </p>
 
         {!disabled && (
-          <p className="mt-6 text-sm text-gray-400">
+          <p className="mt-5 text-center text-xs sm:text-sm text-gray-400">
             PDF only • Maximum 5MB
           </p>
         )}
@@ -90,15 +93,15 @@ export default function UploadZone({
         <div className="mt-6 flex items-center rounded-xl border border-[#93CD0C] bg-[#1A181F] p-4">
           <FileText
             className="mr-3 text-[#93CD0C]"
-            size={28}
+            size={24}
           />
 
-          <div>
+          <div className="min-w-0">
             <p className="font-semibold text-white">
               Resume Selected
             </p>
 
-            <p className="text-sm text-gray-400">
+            <p className="truncate text-sm text-gray-400">
               {file.name}
             </p>
           </div>
