@@ -12,10 +12,10 @@ export default function LoadingSpinner({
 
       <LoaderCircle
         size={48}
-        className="animate-spin text-blue-600"
+        className="animate-spin text-[#93CD0C]"
       />
 
-      <p className="mt-5 text-slate-600">
+      <p className="mt-5 text-gray-300">
         {text}
       </p>
 

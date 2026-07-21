@@ -8,15 +8,17 @@ export default function Badge({ children }: Props) {
   return (
     <span
       className="
-        inline-flex
-        items-center
-        rounded-full
-        bg-blue-100
-        px-4
-        py-2
-        text-sm
-        font-medium
-        text-blue-700
+      inline-flex
+      items-center
+      rounded-full
+      border
+      border-[#93CD0C]
+      bg-[#93CD0C]/20
+      px-3
+      py-1
+      text-xs
+      sm:text-sm
+      text-white
       "
     >
       {children}
