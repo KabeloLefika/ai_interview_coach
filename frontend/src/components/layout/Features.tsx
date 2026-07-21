@@ -10,55 +10,65 @@ export default function Features() {
     <section
       className="
         mx-auto
-        max-w-6xl
+        max-w-7xl
 
         px-6
         sm:px-8
-        lg:px-10
 
-        py-14
-        sm:py-20
-        lg:py-24
-
-        text-center
+        py-12
       "
     >
-      <h1
+      <div
         className="
-          mb-6
+          grid
 
-          text-4xl
-          sm:text-5xl
-          md:text-6xl
-          lg:text-7xl
+          grid-cols-1
+          sm:grid-cols-2
+          lg:grid-cols-4
 
-          font-bold
-          leading-tight
-
-          text-white
+          gap-6
         "
       >
-        Ace Your Next Interview
-      </h1>
+        {features.map((feature) => (
+          <div
+            key={feature}
+            className="
+              rounded-2xl
 
-      <p
-        className="
-          mx-auto
+              border
+              border-[#93CD0C]
 
-          max-w-3xl
+              bg-[#131118]
 
-          text-base
-          sm:text-lg
-          md:text-xl
+              p-6
+              sm:p-8
 
-          leading-8
+              shadow-md
 
-          text-gray-400
-        "
-      >
-        Upload your resume and practice realistic AI interviews
-        tailored specifically to your experience.
-      </p>
+              transition-all
+              duration-300
+
+              hover:border-white
+              hover:-translate-y-1
+            "
+          >
+            <h3
+              className="
+                text-center
+
+                text-lg
+                sm:text-xl
+
+                font-semibold
+
+                text-white
+              "
+            >
+            {feature}
+          </h3>
+        </div>
+      ))}
+      </div>
     </section>
   );
 }
