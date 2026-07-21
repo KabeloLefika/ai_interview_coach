@@ -22,19 +22,28 @@ export default function ProjectsCard({ projects }: Props) {
           <p>No projects found.</p>
         ) : (
           projects.map((project, index) => (
-            <div key={index}>
-              <p className="font-semibold">
-                {project.title}
-              </p>
+            <div
+                key={index}
+                className="rounded-xl border border-[#232129] bg-[#1A181F] p-5"
+            >
 
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 underline break-all"
-              >
-                {project.link}
-              </a>
+                <h3 className="font-bold text-white">
+                    {project.title}
+                </h3>
+
+                {project.link && (
+
+                    <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-2 inline-block break-all text-[#93CD0C] underline"
+                    >
+                        {project.link}
+                    </a>
+
+                )}
+
             </div>
           ))
         )}

@@ -18,18 +18,23 @@ export default function AnswerBox({
                 onChange(e.target.value)
             }
             className="
-                
                 w-full
                 rounded-2xl
                 border
                 border-[#232129]
                 bg-[#1A181F]
-                p-6
+                p-4
+                sm:p-5
+                md:p-6
+                text-sm
+                sm:text-base
                 text-white
                 placeholder:text-gray-500
                 focus:border-[#93CD0C]
                 focus:ring-2
-                focus:ring-blue-500
+                focus:ring-[#93CD0C]
+                outline-none
+                resize-none
             "
             placeholder="Type your answer here..."
         />

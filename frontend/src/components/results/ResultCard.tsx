@@ -73,17 +73,17 @@ export default function ResultCard() {
 };
 
   return (
-    <Card className="w-full max-w-6xl bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)]">
+    <Card className="w-full max-w-6xl bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-5 sm:p-8 md:p-10">
 
       {/* Header */}
 
       <div className="text-center">
 
-        <h1 className="text-5xl font-bold text-white">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
           AI Interview Coaching Report
         </h1>
 
-        <p className="mt-4 text-gray-400">
+        <p className="mx-auto mt-4 max-w-3xl text-sm sm:text-base text-gray-400">
           Personalized feedback generated from your interview.
         </p>
 
@@ -91,27 +91,27 @@ export default function ResultCard() {
 
       {/* Candidate Information */}
 
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
+      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
 
-        <div className="rounded-2xl bg-[#1A181F] border border-[#232129] p-6">
+        <div className="rounded-2xl border border-[#232129] bg-[#1A181F] p-5 sm:p-6">
 
-          <p className="text-gray-400">
+          <p className="text-sm text-gray-400">
             Candidate
           </p>
 
-          <h2 className="mt-2 text-2xl font-bold text-white">
+          <h2 className="mt-2 break-words text-xl sm:text-2xl font-bold text-white">
             {candidate.candidate_name}
           </h2>
 
         </div>
 
-        <div className="rounded-2xl bg-[#1A181F] border border-[#232129] p-6">
+        <div className="rounded-2xl border border-[#232129] bg-[#1A181F] p-5 sm:p-6">
 
-          <p className="text-gray-400">
+          <p className="text-sm text-gray-400">
             Recommended Role
           </p>
 
-          <h2 className="mt-2 text-2xl font-bold text-[#93CD0C]">
+          <h2 className="mt-2 break-words text-xl sm:text-2xl font-bold text-[#93CD0C]">
             {candidate.recommended_role}
           </h2>
 
@@ -121,135 +121,138 @@ export default function ResultCard() {
 
       {/* Summary */}
 
-      <div className="mt-10">
+      <section className="mt-10">
 
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">
           Interview Summary
         </h2>
 
-        <p className="mt-4 text-gray-300 leading-8">
+        <p className="mt-4 text-sm sm:text-base leading-7 sm:leading-8 text-gray-300">
           {report.summary}
         </p>
 
-      </div>
+      </section>
+
 
       {/* Strengths */}
 
-      <div className="mt-10">
+      <section className="mt-10">
 
-        <h2 className="text-3xl font-bold text-[#93CD0C]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#93CD0C]">
           Your Strengths
         </h2>
 
-        <ul className="mt-4 space-y-3">
+        <div className="mt-5 space-y-3">
 
           {report.strengths.map((item) => (
 
-            <li
+            <div
               key={item}
-              className="rounded-xl bg-[#1A181F] border border-[#232129] p-4 text-white"
+              className="rounded-xl border border-[#232129] bg-[#1A181F] p-4 text-white"
             >
               ✅ {item}
-            </li>
+            </div>
 
           ))}
 
-        </ul>
+        </div>
 
-      </div>
+      </section>
 
       {/* Improvements */}
 
-      <div className="mt-10">
+      <section className="mt-10">
 
-        <h2 className="text-3xl font-bold text-orange-400">
+        <h2 className="text-2xl sm:text-3xl font-bold text-orange-400">
           Areas for Improvement
         </h2>
 
-        <ul className="mt-4 space-y-3">
+        <div className="mt-5 space-y-3">
 
           {report.improvements.map((item) => (
 
-            <li
+            <div
               key={item}
-              className="rounded-xl bg-[#1A181F] border border-[#232129] p-4 text-white"
+              className="rounded-xl border border-[#232129] bg-[#1A181F] p-4 text-white"
             >
               • {item}
-            </li>
+            </div>
 
           ))}
 
-        </ul>
+        </div>
 
-      </div>
+      </section>
 
       {/* Recommended Role */}
 
-      <div className="mt-10">
+      <section className="mt-10">
 
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">
           About This Role
         </h2>
 
-        <p className="mt-4 text-gray-300 leading-8">
+        <p className="mt-4 text-sm sm:text-base leading-7 sm:leading-8 text-gray-300">
           {report.role_overview}
         </p>
 
-      </div>
+      </section>
 
       {/* Learning Path */}
 
-      <div className="mt-10">
+      <section className="mt-10">
 
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">
           Suggested Learning Path
         </h2>
 
-        <ul className="mt-4 space-y-3">
+        <div className="mt-5 space-y-3">
 
           {report.learning_path.map((item) => (
 
-            <li
+            <div
               key={item}
-              className="rounded-xl bg-[#1A181F] border border-[#232129] p-4 text-white"
+              className="rounded-xl border border-[#232129] bg-[#1A181F] p-4 text-white"
             >
               📚 {item}
-            </li>
+            </div>
 
           ))}
 
-        </ul>
+        </div>
 
-      </div>
+      </section>
 
       {/* Final Feedback */}
 
-      <div className="mt-10 rounded-2xl border border-[#93CD0C] bg-[#1A181F] p-8">
+      <section className="mt-10 rounded-2xl border border-[#93CD0C] bg-[#1A181F] p-5 sm:p-8">
 
-        <h2 className="text-3xl font-bold text-[#93CD0C]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#93CD0C]">
           Final Feedback
         </h2>
 
-        <p className="mt-5 text-gray-300 leading-8">
+        <p className="mt-5 text-sm sm:text-base leading-7 sm:leading-8 text-gray-300">
           {report.final_feedback}
         </p>
 
-        <p className="mt-8 text-center text-gray-400">
-            Your personalized coaching report can be downloaded as a PDF.
-            Once downloaded you will be taken to the closing screen.
+        <p className="mt-8 text-center text-sm sm:text-base text-gray-400">
+          Your personalized coaching report can be downloaded as a PDF.
+          Once downloaded, you will be taken to the closing screen.
         </p>
 
-      </div>
+      </section>
 
       {/* Download Button */}
 
       <div className="mt-12 flex justify-center">
+        <div className="w-full sm:w-auto sm:min-w-[320px]">
 
         <Button
           onClick={downloadReport}
         >
           📄 Download Personalized Report
         </Button>
+        </div>
 
       </div>
 

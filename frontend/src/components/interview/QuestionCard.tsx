@@ -8,13 +8,13 @@ export default function QuestionCard({
 
     return (
 
-        <div className="rounded-2xl border border-[#93CD0C] bg-[31A181f] p-8">
+        <div className="rounded-2xl border border-[#93CD0C] bg-[#1A181F] p-5 sm:p-6 md:p-8">
 
-            <p className="mb-3 text-sm font-semibold text-[#93CD0C]">
+           <p className="mb-3 text-sm font-semibold text-[#93CD0C]">
             🤖 AI Interviewer
             </p>
 
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-relaxed">
 
                 {question}
 

@@ -7,19 +7,23 @@ import UploadCard from "../components/upload/UploadCard";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#08070A]">
+    <div className="min-h-screen bg-[#08070A] flex flex-col">
 
       <Header />
 
-      <Hero />
+      <main className="flex-1">
 
-      <div className="mx-auto flex max-w-7xl justify-center px-6">
+        <Hero />
 
-        <UploadCard />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-      </div>
+          <UploadCard />
 
-      <Features />
+        </div>
+
+        <Features />
+
+      </main>
 
       <Footer />
 

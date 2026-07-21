@@ -39,7 +39,11 @@ export default function UploadZone({
       <div
         {...getRootProps()}
         className={`
-          rounded-3xl
+          flex
+          flex-col
+          items-center
+          justify-center
+          rounded-2xl
           border-2
           border-dashed
           p-6
@@ -90,7 +94,7 @@ export default function UploadZone({
       </div>
 
       {file && (
-        <div className="mt-6 flex items-center rounded-xl border border-[#93CD0C] bg-[#1A181F] p-4">
+        <div className="mt-6 flex flex-col items-start gap-3 rounded-xl border border-[#93CD0C] bg-[#1A181F] p-4 sm:flex-row sm:items-center">
           <FileText
             className="mr-3 text-[#93CD0C]"
             size={24}
@@ -101,7 +105,7 @@ export default function UploadZone({
               Resume Selected
             </p>
 
-            <p className="truncate text-sm text-gray-400">
+            <p className="w-full truncate text-sm text-gray-400">
               {file.name}
             </p>
           </div>

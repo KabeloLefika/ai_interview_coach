@@ -9,28 +9,28 @@ export default function CandidateCard({
   name,
 }: CandidateCardProps) {
   return (
-    <Card>
+    <Card className="h-full">
 
       <div className="flex items-center gap-4">
 
-        <div className="rounded-full bg-blue-100 p-4">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#93CD0C]/15">
 
           <User
-            size={36}
-            className="text-blue-600"
+            size={34}
+            className="text-[#93CD0C]"
           />
 
         </div>
 
-        <div>
+        <div className="min-w-0">
 
-          <h2 className="text-xl font-bold">
+          <p className="text-sm uppercase tracking-wider text-gray-400">
             Candidate
-          </h2>
-
-          <p className="text-gray-400">
-            {name}
           </p>
+
+          <h2 className="mt-1 truncate text-xl font-bold text-white">
+            {name}
+          </h2>
 
         </div>
 

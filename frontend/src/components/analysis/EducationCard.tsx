@@ -9,10 +9,15 @@ interface Props {
 export default function EducationCard({ education }: Props) {
   return (
     <Card>
-      <div className="flex items-center gap-3">
-        <GraduationCap className="text-blue-600" />
+      <div className="flex items-center gap-4">
 
-        <h2 className="text-xl font-bold">
+        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#93CD0C]/15">
+
+          <GraduationCap className="text-[#93CD0C]" />
+
+        </div>
+
+        <h2 className="text-2xl font-bold text-white">
           Education
         </h2>
       </div>
@@ -22,14 +27,15 @@ export default function EducationCard({ education }: Props) {
           <p>No education found.</p>
         ) : (
           education.map((item, index) => (
-            <div key={index}>
-              <p className="font-semibold">{item.degree}</p>
+            <div key={index} className="rounded-xl border border-[#232129] bg-[#1A181F] p-4">
 
-              <p className="text-gray-400">
+              <p className="font-semibold text-white">{item.degree}</p>
+
+              <p className="mt-1 text-gray-300">
                 {item.institution}
               </p>
 
-              <p className="text-sm text-gray-500">
+              <p className="mt-1 text-sm text-[#93CD0C]">
                 {item.graduation_year}
               </p>
             </div>

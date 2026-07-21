@@ -10,13 +10,13 @@ export default function InterviewProgress({
   const progress = Math.round((current / total) * 100);
 
   return (
-    <div className="mt-8 mb-8">
-      <div className="mb-3 flex justify-between text-white">
-        <span className="font-medium">
+    <div className="my-6 sm:my-8">
+      <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <span className="text-sm sm:text-base font-medium text-white">
           Question {current} of {total}
         </span>
 
-        <span className="font-semibold text-[#93CD0C]">
+        <span className="text-sm sm:text-base font-semibold text-[#93CD0C]">
           {progress}% Complete
         </span>
       </div>

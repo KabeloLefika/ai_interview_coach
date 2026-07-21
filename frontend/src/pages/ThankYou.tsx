@@ -28,34 +28,33 @@ export default function ThankYou() {
 
       <Header />
 
-      <main className="flex-1 flex items-center justify-center px-6">
+      <main className="flex-1 px-4 py-8 sm:px-6 md:px-8 lg:px-10">
 
-        <Card className="max-w-4xl w-full text-center">
+        <div className="mx-auto max-w-5xl">
 
-          <CheckCircle
-            size={100}
-            className="mx-auto text-[#93CD0C]"
-          />
+          <Card className="bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-6 sm:p-8 md:p-12 text-center">
 
-          <h1 className="mt-8 text-5xl font-bold text-white">
+            <CheckCircle
+              size={80}
+              className="mx-auto text-[#93CD0C] sm:w-24 sm:h-24 md:w-28 md:h-28"
+            />
 
-            Thank You
+            <h1 className="mt-8 text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+              Thank You
+            </h1>
 
-          </h1>
+          <p className="mt-6 text-lg sm:text-xl text-gray-300">
 
-          <p className="mt-6 text-xl text-gray-300">
+              Thank you for participating in the
 
-            Thank you for participating in the
-
-            <span className="text-[#93CD0C] font-semibold">
-
-              {" "}AI Career Coach Demonstration
+              <span className="font-semibold text-[#93CD0C]">
+                {" "}AI Career Coach Demonstration
 
             </span>
 
           </p>
 
-          <p className="mt-8 leading-8 text-gray-400">
+          <p className="mx-auto mt-8 max-w-3xl text-sm sm:text-base leading-7 sm:leading-8 text-gray-400">
 
             Your AI Career Coach session has been completed successfully.
 
@@ -66,21 +65,21 @@ export default function ThankYou() {
 
            </p>
 
-          <div className="mt-12 rounded-2xl border border-[#232129] bg-[#15121B] p-8">
+          <div className="mt-12 rounded-2xl border border-[#232129] bg-[#15121B] p-6 sm:p-8">
 
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
 
               Powered by
 
             </h2>
 
-            <p className="mt-3 text-[#93CD0C] text-3xl font-bold">
+            <p className="mt-4 text-2xl sm:text-3xl font-bold text-[#93CD0C]">
 
               Amazon Bedrock
 
             </p>
 
-            <p className="mt-4 text-gray-400">
+            <p className="mt-4 text-sm sm:text-base text-gray-400">
 
               Secure AI • Personalized Career Guidance • Deloitte Demo
 
@@ -88,7 +87,7 @@ export default function ThankYou() {
 
           </div>
 
-          <div className="mt-12">
+           <div className="mt-12 mx-auto w-full sm:w-auto sm:min-w-[300px]">
 
             <Button
               onClick={finish}
@@ -101,6 +100,8 @@ export default function ThankYou() {
           </div>
 
         </Card>
+
+        </div>
 
       </main>
 

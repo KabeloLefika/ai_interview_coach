@@ -103,59 +103,64 @@ export default function InterviewCard() {
 
       <Header />
 
-      <main className="flex-1 flex items-center justify-center px-6 py-10">
+      <main className="flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+        <div className="mx-auto w-full max-w-5xl">
 
-        <Card className="w-full max-w-5xl bg-[#131118] border border-[#232129] shadow-[0_0_50px_rgba(147,205,12,0.08)]">
+        <Card className="bg-[#131118] border border-[#232129] shadow-[0_0_50px_rgba(147,205,12,0.08)] p-5 sm:p-8 md:p-10">
 
-          <h1 className="mb-8 text-center text-4xl font-bold text-white">
-            AI Interview
-          </h1>
+            <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+              AI Interview
+            </h1>
 
-          <p className="mb-8 text-center text-gray-400">
-            Answer naturally. There are no right or wrong answers.
-          </p>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-sm sm:text-base text-gray-400">
+              Answer naturally. There are no right or wrong answers.
+            </p>
 
-          <InterviewProgress
-            current={currentQuestion + 1}
-            total={totalQuestions}
-          />
-
-          <QuestionCard
-            question={questions[currentQuestion]}
-          />
-
-          <div className="mt-8">
-
-            <AnswerBox
-              value={answer}
-              onChange={setAnswer}
+            <InterviewProgress
+              current={currentQuestion + 1}
+              total={totalQuestions}
             />
 
-          </div>
+            <QuestionCard
+              question={questions[currentQuestion]}
+            />
 
-          <div className="mt-8 flex justify-end">
+            <div className="mt-6 sm:mt-8">
 
-            <Button
-              onClick={nextQuestion}
-              disabled={answer.trim() === "" || loading}
-            >
-              {loading
-                ? "Generating Report..."
-                : currentQuestion === totalQuestions - 1
-                ? "Finish Interview"
-                : "Next Question"}
-            </Button>
+              <AnswerBox
+                value={answer}
+                onChange={setAnswer}
+              />
 
-          </div>
+            </div>
 
-        </Card>
+            <div className="mt-8 flex justify-center sm:justify-end">
+
+              <div className="w-full sm:w-auto sm:min-w-[220px]">
+
+                <Button
+                  onClick={nextQuestion}
+                  disabled={answer.trim() === "" || loading}
+                >
+                  {loading
+                    ? "Generating Report..."
+                    : currentQuestion === totalQuestions - 1
+                    ? "Finish Interview"
+                    : "Next Question"}
+                </Button>
+
+              </div>
+
+            </div>
+
+          </Card>
+
+        </div>
 
       </main>
 
       <Footer />
 
     </div>
-
   );
-
 }

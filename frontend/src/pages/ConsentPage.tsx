@@ -17,18 +17,19 @@ export default function ConsentPage() {
     <div className="min-h-screen bg-[#08070A] flex flex-col">
       <Header />
 
-      <main className="flex-1 flex items-center justify-center px-6 py-10">
-        <Card className="max-w-4xl w-full bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)]">
+      <main className="flex-1 px-4 py-6 sm:px-6 md:px-8 lg:px-10">
+        <div className="mx-auto max-w-5xl">
+        <Card className="bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-6 sm:p-8 md:p-10">
 
-          <h1 className="text-4xl font-bold text-white mb-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             Welcome
           </h1>
 
-          <h2 className="text-[#93CD0C] mb-8 text-xl">
+          <h2 className="mt-2 text-lg sm:text-xl text-[#93CD0C]">
             AI Interview Coach Demo
           </h2>
 
-          <div className="space-y-5 text-gray-300 leading-7">
+          <div className="mt-8 space-y-5 text-sm sm:text-base leading-7 sm:leading-8 text-gray-300">
 
             <p>
               Thank you for participating in the Deloitte AI Interview Coach demonstration.
@@ -73,7 +74,7 @@ export default function ConsentPage() {
             />
           </div>
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
 
             <Button
               onClick={() => navigate("/home")}
@@ -91,6 +92,7 @@ export default function ConsentPage() {
           </div>
 
         </Card>
+        </div>
       </main>
 
       <Footer />

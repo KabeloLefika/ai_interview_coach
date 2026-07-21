@@ -46,9 +46,9 @@ export default function CandidateDashboard() {
   };
 
   return (
-    <div className="mt-8 space-y-6">
+    <div className="mx-auto mt-8 w-full max-w-7xl space-y-6">
       {/* Top Row */}
-      <div className="grid gap-6 md:grid-cols-2">
+       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <CandidateCard
           name={candidate.candidate_name}
         />
@@ -59,7 +59,7 @@ export default function CandidateDashboard() {
       </div>
 
       {/* Middle Row */}
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <SkillsCard
           skills={candidate.skills || []}
         />
@@ -70,7 +70,7 @@ export default function CandidateDashboard() {
       </div>
 
       {/* Bottom Row */}
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <ExperienceCard
           experience={candidate.experience || []}
         />

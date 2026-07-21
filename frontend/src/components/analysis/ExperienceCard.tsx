@@ -22,20 +22,26 @@ export default function ExperienceCard({ experience }: Props) {
           <p>No experience found.</p>
         ) : (
           experience.map((job, index) => (
-            <div key={index}>
-              <p className="font-semibold">
-                {job.role}
-              </p>
+            <div
+                key={index}
+                className="rounded-xl border border-[#232129] bg-[#1A181F] p-5"
+            >
 
-              <p>{job.company}</p>
+                <h3 className="font-bold text-white">
+                    {job.role}
+                </h3>
 
-              <p className="text-sm text-gray-400">
-                {job.duration}
-              </p>
+                <p className="text-[#93CD0C]">
+                    {job.company}
+                </p>
 
-              <p className="text-sm">
-                {job.responsibilities}
-              </p>
+                <p className="mt-1 text-sm text-gray-400">
+                    {job.duration}
+                </p>
+
+                <p className="mt-3 text-gray-300 leading-7">
+                    {job.responsibilities}
+                </p>
             </div>
           ))
         )}
