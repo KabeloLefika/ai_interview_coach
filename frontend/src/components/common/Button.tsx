@@ -19,19 +19,37 @@ export default function Button({
      onClick={onClick}
      disabled={disabled}
      className={`
-       w-full
-       rounded-2xl
-       bg-[#93CD0C]
-       py-4
-       font-semibold
-       text-black
-       transition-all
-       duration-300
-       hover:scale-[1.02]
-       hover:bg-[#A6E312]
-       disabled:bg-gray-700
-       disabled:text-gray-400
-       /
+        w-full
+        sm:w-auto
+        min-w-[180px]
+
+        rounded-xl
+        md:rounded-2xl
+
+        bg-[#93CD0C]
+
+        px-6
+        py-3
+        sm:px-8
+        sm:py-4
+
+        text-sm
+        sm:text-base
+        font-semibold
+
+        text-black
+
+        transition-all
+        duration-300
+
+        hover:bg-[#A6E312]
+        hover:scale-[1.02]
+
+        active:scale-95
+
+        disabled:bg-gray-700
+        disabled:text-gray-400
+        disabled:cursor-not-allowed
      `}
 >
      {children}

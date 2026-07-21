@@ -7,19 +7,58 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="mx-auto grid max-w-5xl grid-cols-2 gap-6 py-12">
+    <section
+      className="
+        mx-auto
+        max-w-6xl
 
-      {features.map((feature) => (
-        <div
-          key={feature}
-          className="rounded-2xl bg-[#131118] border border-[#93CD0C] p-8 shadow-sm"
-        >
-          <h3 className="text-xl font-semibold">
-            {feature}
-          </h3>
-        </div>
-      ))}
+        px-6
+        sm:px-8
+        lg:px-10
 
+        py-14
+        sm:py-20
+        lg:py-24
+
+        text-center
+      "
+    >
+      <h1
+        className="
+          mb-6
+
+          text-4xl
+          sm:text-5xl
+          md:text-6xl
+          lg:text-7xl
+
+          font-bold
+          leading-tight
+
+          text-white
+        "
+      >
+        Ace Your Next Interview
+      </h1>
+
+      <p
+        className="
+          mx-auto
+
+          max-w-3xl
+
+          text-base
+          sm:text-lg
+          md:text-xl
+
+          leading-8
+
+          text-gray-400
+        "
+      >
+        Upload your resume and practice realistic AI interviews
+        tailored specifically to your experience.
+      </p>
     </section>
   );
 }

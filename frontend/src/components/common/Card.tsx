@@ -12,13 +12,19 @@ export default function Card({
   return (
     <div
       className={`
-        rounded-3xl
+        w-full
+        rounded-2xl
+        md:rounded-3xl
         bg-[#15121B]
         border
         border-[#232129]
-        shadow-2xl
-        p-8
         shadow-xl
+        p-4
+        sm:p-6
+        md:p-8
+        lg:p-10
+        transition-all
+        duration-300
         ${className}
       `}
     >
