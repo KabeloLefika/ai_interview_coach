@@ -442,16 +442,8 @@ def build_report(candidate, report):
     )
     story.append(Spacer(1, 8))
     story.append(
-
     Paragraph(
-        """
-        <link:https://www.deloitte.com/za/en/careers.html>
-
-        Explore Deloitte Careers →
-
-        </link>
-
-        """,
+        "Explore Deloitte Careers → https://www.deloitte.com/za/en/careers.html",
         body,
         )
     )
