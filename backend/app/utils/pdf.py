@@ -406,6 +406,57 @@ def build_report(candidate, report):
 
     story.append(Spacer(1, 35))
 
+
+    # =====================================================
+
+    # CAREER OPPORTUNITIES AT DELOITTE
+
+    # =====================================================
+
+
+    story.append(
+
+    Paragraph(
+
+        "Career Opportunities at Deloitte",
+        heading,
+        )
+    )
+
+    story.append(Spacer(1, 8))
+
+    story.append(
+        Paragraph(
+        """
+        Interested in exploring opportunities at Deloitte?
+
+        Visit our careers portal to discover graduate programmes,
+
+        internships, experienced hire roles, and other exciting
+
+        career opportunities available across Deloitte Africa.
+        """,
+
+        body,
+        )
+    )
+    story.append(Spacer(1, 8))
+    story.append(
+
+    Paragraph(
+        """
+        <link:https://www.deloitte.com/za/en/careers.html>
+
+        Explore Deloitte Careers →
+
+        </link>
+
+        """,
+        body,
+        )
+    )
+    story.append(Spacer(1, 35))
+
     # =====================================================
     # DISCLAIMER
     # =====================================================
