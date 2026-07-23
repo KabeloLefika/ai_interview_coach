@@ -4,15 +4,15 @@ import boto3;
 
 bedrock = boto3.client(
 
-    service_name="bedrock-runtime",
+    service_name="",
 
-    region_name="eu-central-1",
+    region_name="",
 
     verify=r"C:\ProgramData\Netskope\stagent\data\nscacert.pem"
 
 )
 
-MODEL_ID = "eu.anthropic.claude-3-haiku-20240307-v1:0"
+MODEL_ID = ""
 
 
 def analyze_cv_with_bedrock(cv_text: str):
