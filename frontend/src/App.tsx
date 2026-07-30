@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Interview from "./pages/Interview";
 import Results from "./pages/Results";
 import ThankYou from "./pages/ThankYou";
+import StudentUpload from "./pages/StudentUpload";
 
 export default function App() {
   return (
@@ -39,6 +40,11 @@ export default function App() {
       <Route
         path="/thank-you"
         element={<ThankYou />}
+      />
+
+      <Route
+        path="/student-upload"
+        element={<StudentUpload />}
       />
 
     </Routes>

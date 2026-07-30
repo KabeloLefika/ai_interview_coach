@@ -77,7 +77,7 @@ export default function ConsentPage() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
 
             <Button
-              onClick={() => navigate("/home")}
+              onClick={() => navigate("/student-upload")}
               disabled={!accepted}
             >
               I Agree
