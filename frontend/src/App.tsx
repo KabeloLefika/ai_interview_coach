@@ -59,6 +59,11 @@ export default function App() {
         element={<AdminQueue />}
       />
 
+      <Route
+        path="/admin"
+        element={<AdminQueue />}
+      />
+
     </Routes>
   );
 }
