@@ -12,7 +12,6 @@ export default function InterviewStation() {
 
     const {
         setCandidate,
-        setQuestions,
     } = useSession();
 
     const [loading, setLoading] = useState(false);
@@ -35,18 +34,12 @@ export default function InterviewStation() {
 
                 setLoading(true);
 
+                // Store the analyzed candidate
                 setCandidate(response.data.candidate);
-
-                const interview = await api.post(
-                    "/generate-interview",
-                    response.data.candidate
-                );
-
-                setQuestions(interview.data.questions);
 
                 clearInterval(interval);
 
-                navigate("/interview");
+                navigate("/candidate-dashboard");
 
             } catch (error) {
 
@@ -58,18 +51,20 @@ export default function InterviewStation() {
 
         return () => clearInterval(interval);
 
-    }, [loading, navigate, setCandidate, setQuestions]);
+    }, [loading, navigate, setCandidate]);
 
     return (
 
         <Card className="max-w-3xl mx-auto text-center">
 
             <h1 className="text-5xl font-bold text-white">
-                Waiting for Next Candidate
+                {loading ? "Analyzing Resume..." : "Waiting for Next Candidate"}
             </h1>
 
             <p className="mt-6 text-gray-400">
-                The interview will start automatically when a student is called.
+                {loading
+                    ? "Please wait while we prepare the interview."
+                    : "The interview will start automatically when a student is called."}
             </p>
 
         </Card>
