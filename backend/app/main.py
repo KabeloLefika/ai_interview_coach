@@ -8,6 +8,7 @@ from app.routes.evaluate import router as evaluate_router
 from app.routes.report import router as report_router
 from app.routes.student import router as student_router
 from app.routes.queue import router as queue_router
+from app.routes import admin
 
 app = FastAPI(
     title="AI Interview Coach",
@@ -28,6 +29,7 @@ app.include_router(evaluate_router)
 app.include_router(report_router)
 app.include_router(student_router)
 app.include_router(queue_router)
+app.include_router(admin.router)
 
 
 @app.get("/")

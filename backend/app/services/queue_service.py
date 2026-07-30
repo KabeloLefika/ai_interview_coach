@@ -52,3 +52,33 @@ def add_student(name, email, filename):
 def get_queue():
 
     return load_queue()
+
+
+def call_student(student_id):
+
+    queue = load_queue()
+
+    for student in queue:
+
+        if student["id"] == student_id:
+
+            student["status"] = "called"
+
+            break
+
+    save_queue(queue)
+
+    return True
+
+
+def get_student(student_id):
+
+    queue = load_queue()
+
+    for student in queue:
+
+        if student["id"] == student_id:
+
+            return student
+
+    return None

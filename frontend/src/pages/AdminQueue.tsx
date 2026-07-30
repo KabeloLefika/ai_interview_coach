@@ -61,7 +61,27 @@ export default function AdminQueue() {
 
                         </div>
 
-                        <button className="bg-[#93CD0C] text-black px-6 py-3 rounded-lg font-bold">
+                        <button
+                            onClick={async () => {
+
+                                try {
+
+                                    await axios.post(
+                                        `http://localhost:8000/call-student/${student.id}`
+                                    );
+
+                                    loadQueue();
+
+                                } catch (error) {
+
+                                    console.error(error);
+                                    alert("Unable to call student.");
+
+                                }
+
+                            }}
+                            className="rounded-lg bg-[#93CD0C] px-6 py-3 font-bold text-black transition hover:bg-[#A6E312]"
+                        >
 
                             Start Interview
 
