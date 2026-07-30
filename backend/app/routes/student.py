@@ -5,6 +5,7 @@ import shutil
 
 from app.services.queue_service import add_student
 from app.services.queue_service import load_queue
+from app.services.queue_service import get_student
 
 router = APIRouter()
 
@@ -39,3 +40,16 @@ def get_queue():
     return {
         "queue": load_queue()
     }
+
+
+@router.get("/student-status/{student_id}")
+def student_status(student_id: int):
+
+    student = get_student(student_id)
+
+    if student is None:
+        return {
+            "status": "not_found"
+        }
+
+    return student

@@ -59,6 +59,21 @@ export default function AdminQueue() {
                                 {student.filename}
                             </p>
 
+                            <p className="mt-2 text-sm">
+                                Status:
+                                <span
+                                    className={`ml-2 font-semibold ${
+                                        student.status === "waiting"
+                                            ? "text-yellow-400"
+                                            : student.status === "called"
+                                            ? "text-green-400"
+                                            : "text-gray-400"
+                                    }`}
+                                >
+                                    {student.status}
+                                </span>
+                            </p>
+
                         </div>
 
                         <button

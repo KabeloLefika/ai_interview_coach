@@ -42,6 +42,7 @@ export default function StudentUploadCard() {
         navigate("/queue", {
           state: {
               queuePosition: response.data.queue_position,
+              studentId: response.data.id,
           },
       });
 

@@ -1,14 +1,51 @@
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 
+import { useEffect } from "react";
+import axios from "axios";
+
 export default function QueuePage() {
 
-  const location = useLocation();
+const location = useLocation();
+const navigate = useNavigate();
 
-  const queuePosition = location.state?.queuePosition ?? 1;
+const queuePosition = location.state?.queuePosition ?? 1;
+const studentId = location.state?.studentId;
+
+useEffect(() => {
+
+    if (!studentId) return;
+
+    const interval = setInterval(async () => {
+
+        try {
+
+            const res = await axios.get(
+                `http://localhost:8000/student-status/${studentId}`
+            );
+
+            if (res.data.status === "called") {
+
+                clearInterval(interval);
+
+                navigate("/interview-ready");
+
+            }
+
+        } catch (err) {
+
+            console.error(err);
+
+        }
+
+    }, 3000);
+
+    return () => clearInterval(interval);
+
+}, [studentId, navigate]);
 
   return (
     <div className="min-h-screen bg-[#08070A] flex flex-col">
