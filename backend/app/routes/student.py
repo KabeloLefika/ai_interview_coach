@@ -4,6 +4,7 @@ from pathlib import Path
 import shutil
 
 from app.services.queue_service import add_student
+from app.services.queue_service import load_queue
 
 router = APIRouter()
 
@@ -31,3 +32,10 @@ async def student_upload(
     )
 
     return student
+
+
+@router.get("/queue")
+def get_queue():
+    return {
+        "queue": load_queue()
+    }

@@ -8,6 +8,7 @@ import Results from "./pages/Results";
 import ThankYou from "./pages/ThankYou";
 import StudentUpload from "./pages/StudentUpload";
 import QueuePage from "./pages/QueuePage";
+import AdminQueue from "./pages/AdminQueue";
 
 export default function App() {
   return (
@@ -51,6 +52,11 @@ export default function App() {
       <Route
         path="/queue"
         element={<QueuePage />}
+      />
+
+      <Route
+        path="/admin-queue"
+        element={<AdminQueue />}
       />
 
     </Routes>
