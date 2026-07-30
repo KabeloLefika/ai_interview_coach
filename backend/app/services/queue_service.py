@@ -1,5 +1,7 @@
 import json
 from pathlib import Path
+from app.services.active_interview_service import set_active_student
+
 
 QUEUE_FILE = Path("data/queue.json")
 
@@ -58,17 +60,25 @@ def call_student(student_id):
 
     queue = load_queue()
 
+    selected_student = None
+
     for student in queue:
 
         if student["id"] == student_id:
 
             student["status"] = "called"
+            selected_student = student
 
-            break
+        elif student["status"] == "called":
+
+            student["status"] = "waiting"
 
     save_queue(queue)
 
-    return True
+    if selected_student:
+        set_active_student(selected_student)
+
+    return selected_student
 
 
 def get_student(student_id):
