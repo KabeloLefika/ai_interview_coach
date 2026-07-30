@@ -10,6 +10,7 @@ import StudentUpload from "./pages/StudentUpload";
 import QueuePage from "./pages/QueuePage";
 import AdminQueue from "./pages/AdminQueue";
 import InterviewReady from "./pages/InterviewReady";
+import InterviewStationPage from "./pages/InterviewStation";
 
 export default function App() {
   return (
@@ -68,6 +69,11 @@ export default function App() {
       <Route
         path="/interview-ready"
         element={<InterviewReady />}
+      />
+
+      <Route
+        path="/station"
+        element={<InterviewStationPage />}
       />
 
     </Routes>
