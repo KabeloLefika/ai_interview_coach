@@ -17,7 +17,7 @@ export default function AdminQueue() {
 
         const res = await axios.get("http://localhost:8000/queue");
 
-        setQueue(res.data);
+        setQueue(res.data.queue || []);
     }
 
     useEffect(()=>{
