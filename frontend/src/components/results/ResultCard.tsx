@@ -3,9 +3,12 @@ import Button from "../common/Button";
 import { useSession } from "../../hooks/useSession";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function ResultCard() {
   const navigate = useNavigate();
+  
+  const [email, setEmail] = useState("");
 
   const {
     candidate,
@@ -17,18 +20,26 @@ export default function ResultCard() {
   }
 
   const downloadReport = async () => {
-  try {
+    if (!email.trim()) {
 
-    const response = await api.post(
-      "/download-report",
-      {
-        candidate,
-        report,
-      },
-      {
-        responseType: "blob",
-      }
-    );
+        alert("Please enter your email address.");
+
+        return;
+
+    }
+    try {
+
+      const response = await api.post(
+        "/download-report",
+        {
+          candidate,
+          report,
+          email,
+        },
+        {
+          responseType: "blob",
+        }
+      );
 
     const url = window.URL.createObjectURL(
       new Blob(
@@ -242,6 +253,39 @@ export default function ResultCard() {
 
       </section>
 
+      <section className="mt-10">
+
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">
+          Email Your Report
+        </h2>
+
+        <p className="mt-3 text-gray-400">
+          Enter your email address below and we'll send you a copy of your AI Interview Report.
+        </p>
+
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email address"
+          className="
+            mt-6
+            w-full
+            rounded-xl
+            border
+            border-[#232129]
+            bg-[#1A181F]
+            px-5
+            py-4
+            text-white
+            placeholder:text-gray-500
+            focus:border-[#93CD0C]
+            focus:outline-none
+          "
+        />
+
+      </section>
+
       {/* Download Button */}
 
       <div className="mt-12 flex justify-center">
@@ -249,8 +293,9 @@ export default function ResultCard() {
 
         <Button
           onClick={downloadReport}
+          disabled={!email.trim()}
         >
-          📄 Download Personalized Report
+          📧 Download Report & Email Me
         </Button>
         </div>
 
