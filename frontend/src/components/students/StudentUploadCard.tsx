@@ -39,7 +39,11 @@ export default function StudentUploadCard() {
 
         console.log(response.data);
 
-        navigate("/queue");
+        navigate("/queue", {
+          state: {
+              queuePosition: response.data.queue_position,
+          },
+      });
 
     }
 

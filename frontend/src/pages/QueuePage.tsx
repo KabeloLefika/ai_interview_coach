@@ -1,8 +1,15 @@
+import { useLocation } from "react-router-dom";
+
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 
 export default function QueuePage() {
+
+  const location = useLocation();
+
+  const queuePosition = location.state?.queuePosition ?? 1;
+
   return (
     <div className="min-h-screen bg-[#08070A] flex flex-col">
 
@@ -27,7 +34,7 @@ export default function QueuePage() {
             </p>
 
             <h2 className="mt-4 text-7xl font-bold text-[#93CD0C]">
-              #1
+              #{queuePosition}
             </h2>
 
           </div>
