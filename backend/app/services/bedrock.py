@@ -1,18 +1,21 @@
 import json;
-
+import os
+from dotenv import load_dotenv
 import boto3;
+
+
+load_dotenv()
+MODEL_ID= os.getenv("MODEL_ID")
 
 bedrock = boto3.client(
 
-    service_name="bedrock-runtime",
+    "bedrock-runtime",
 
-    region_name="eu-central-1",
+    region_name=os.getenv("AWS_REGION"),
 
-    verify=r"C:\ProgramData\Netskope\stagent\data\nscacert.pem"
+    verify=os.getenv("CERTIFICATE_PATH")
 
 )
-
-MODEL_ID = "eu.anthropic.claude-3-haiku-20240307-v1:0"
 
 
 def analyze_cv_with_bedrock(cv_text: str):
