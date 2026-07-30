@@ -5,6 +5,8 @@ import Button from "../common/Button";
 import UploadZone from "../upload/UploadZone";
 
 import StudentForm from "./StudentForm";
+import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentUploadCard() {
 
@@ -14,15 +16,42 @@ export default function StudentUploadCard() {
 
   const [file, setFile] = useState<File | null>(null);
 
-  const submit = () => {
+  const navigate = useNavigate();
 
-    console.log({
-      name,
-      email,
-      file,
-    });
+  const submit = async () => {
 
-  };
+    if (!file) return;
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+
+    formData.append("email", email);
+
+    formData.append("file", file);
+
+    try {
+
+        const response = await api.post(
+            "/student-upload",
+            formData
+        );
+
+        console.log(response.data);
+
+        navigate("/queue");
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert("Upload failed.");
+
+    }
+
+};
 
   return (
 
