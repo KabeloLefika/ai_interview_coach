@@ -12,6 +12,8 @@ export default function InterviewStation() {
 
     const {
         setCandidate,
+        //setQuestions,
+        setActiveStudentId,
     } = useSession();
 
     const [loading, setLoading] = useState(false);
@@ -36,6 +38,12 @@ export default function InterviewStation() {
 
                 // Store the analyzed candidate
                 setCandidate(response.data.candidate);
+
+                setActiveStudentId(response.data.student.id);
+
+                await api.post(
+                    `/start-interview/${response.data.student.id}`
+                );
 
                 clearInterval(interval);
 

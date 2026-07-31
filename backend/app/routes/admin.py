@@ -1,10 +1,11 @@
 from fastapi import APIRouter
 
-from app.services.queue_service import call_student
+from app.services.queue_service import (call_student,start_interview,complete_interview)
 from app.services.active_interview_service import (
     get_active_student,
     clear_active_student,
 )
+
 
 router = APIRouter()
 
@@ -36,3 +37,18 @@ def clear():
     return {
         "success": True
     }
+
+@router.post("/start-interview/{student_id}")
+def start(student_id: int):
+
+    start_interview(student_id)
+
+    return {"success": True}
+
+
+@router.post("/complete-interview/{student_id}")
+def complete(student_id: int):
+
+    complete_interview(student_id)
+
+    return {"success": True}

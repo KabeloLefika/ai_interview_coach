@@ -80,6 +80,35 @@ def call_student(student_id):
 
     return selected_student
 
+def start_interview(student_id: int):
+
+    queue = load_queue()
+
+    for student in queue:
+
+        if student["id"] == student_id:
+
+            student["status"] = "interviewing"
+
+            break
+
+    save_queue(queue)
+
+
+def complete_interview(student_id: int):
+
+    queue = load_queue()
+
+    for student in queue:
+
+        if student["id"] == student_id:
+
+            student["status"] = "completed"
+
+            break
+
+    save_queue(queue)
+
 
 def get_student(student_id):
 

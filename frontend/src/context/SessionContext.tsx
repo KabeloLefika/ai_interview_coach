@@ -51,6 +51,9 @@ interface SessionContextType {
   questions: string[];
   setQuestions: (questions: string[]) => void;
 
+  activeStudentId: number | null;
+  setActiveStudentId: (id: number |null) => void;
+
   interviewCompleted: boolean;
   setInterviewCompleted: (value: boolean) => void;
 
@@ -78,6 +81,9 @@ export function SessionProvider({ children }: Props) {
   const [questions, setQuestions] =
     useState<string[]>([]);
 
+  const [activeStudentId, setActiveStudentId] =
+    useState<number | null>(null);
+
   const [interviewCompleted, setInterviewCompleted] =
     useState(false);
 
@@ -86,6 +92,7 @@ export function SessionProvider({ children }: Props) {
     //setResult(null);
     setReport(null);
     setQuestions([]);
+    setActiveStudentId(null);
     setInterviewCompleted(false);
   }
 
@@ -103,6 +110,9 @@ export function SessionProvider({ children }: Props) {
 
         questions,
         setQuestions,
+
+        activeStudentId,
+        setActiveStudentId,
 
         interviewCompleted,
         setInterviewCompleted,

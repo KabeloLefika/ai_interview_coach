@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
+import api from "../services/api";
 
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
@@ -12,15 +13,31 @@ export default function ThankYou() {
 
   const navigate = useNavigate();
 
-  const { resetSession } = useSession();
+  const { resetSession,activeStudentId, } = useSession();
 
-  const finish = () => {
+  const finish = async () => {
+
+    try {
+
+        if (activeStudentId) {
+
+            await api.post(
+                `/complete-interview/${activeStudentId}`
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
 
     resetSession();
 
-    navigate("/");
+    navigate("/station");
 
-  };
+};
 
   return (
 
