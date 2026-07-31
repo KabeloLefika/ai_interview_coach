@@ -1,13 +1,23 @@
 import boto3
+import os
+from dotenv import load_dotenv
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 
 
+
+load_dotenv()
+
+print("AWS_REGION:", os.getenv("AWS_REGION"))
+print("CERTIFICATE_PATH:", os.getenv("CERTIFICATE_PATH"))
+print("Certificate exists:", os.path.exists(os.getenv("CERTIFICATE_PATH")))
+
 ses = boto3.client(
     "ses",
-    region_name="eu-central-1"
+    region_name=os.getenv("AWS_REGION"),
+    verify=os.getenv("CERTIFICATE_PATH")
 )
 
 SENDER_EMAIL = "aiinterviewcoach1@gmail.com"
