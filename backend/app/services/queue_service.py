@@ -43,7 +43,7 @@ def add_student(name, email, filename, candidate,):
         "name": name,
         "email": email,
         "filename": filename,
-        "candidate": None,
+        "candidate": candidate,
         "status": "waiting",
         "queue_position": len(queue) + 1,
     }
