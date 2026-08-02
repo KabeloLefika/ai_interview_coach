@@ -28,17 +28,18 @@ useEffect(() => {
             );
 
             if (res.data.status === "called") {
-
                 clearInterval(interval);
-
                 navigate("/interview-ready");
+            }
 
+            if (res.data.status === "completed") {
+                clearInterval(interval);
+                navigate("/student-thank-you");
+                return;
             }
 
         } catch (err) {
-
             console.error(err);
-
         }
 
     }, 3000);

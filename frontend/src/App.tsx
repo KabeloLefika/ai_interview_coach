@@ -12,6 +12,7 @@ import AdminQueue from "./pages/AdminQueue";
 import InterviewReady from "./pages/InterviewReady";
 import InterviewStationPage from "./pages/InterviewStation";
 import CandidateDashboardPage from "./pages/CandidateDashboardPage";
+import StudentThankYou from "./pages/StudentThankYou";
 
 export default function App() {
   return (
@@ -80,6 +81,11 @@ export default function App() {
       <Route
       path="/candidate-dashboard"
       element={<CandidateDashboardPage />}
+      />
+
+      <Route
+      path="/student-thank-you"
+      element={<StudentThankYou />}
       />
 
     </Routes>
