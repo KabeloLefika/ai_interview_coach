@@ -1,8 +1,49 @@
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 
 export default function InterviewReady() {
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const studentId = location.state?.studentId;
+
+    useEffect(() => {
+
+        if (!studentId) return;
+
+        const interval = setInterval(async () => {
+
+            try {
+
+                const res = await axios.get(
+                    `http://localhost:8000/student-status/${studentId}`
+                );
+
+                if (res.data.status === "completed") {
+
+                    clearInterval(interval);
+
+                    navigate("/student-thank-you");
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }, 3000);
+
+        return () => clearInterval(interval);
+
+    }, [studentId, navigate]);
 
     return (
 
