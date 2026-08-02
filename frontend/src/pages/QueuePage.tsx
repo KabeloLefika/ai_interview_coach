@@ -29,7 +29,11 @@ useEffect(() => {
 
             if (res.data.status === "called") {
                 clearInterval(interval);
-                navigate("/interview-ready");
+                navigate("/interview-ready", {
+                    state: {
+                        studentId,
+                    },
+                });
             }
 
             if (res.data.status === "completed") {
