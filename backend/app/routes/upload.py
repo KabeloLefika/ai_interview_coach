@@ -48,22 +48,17 @@ def analyze_active_student():
 
     if not student:
         return {
-            "candidate": None
-        }
-
-    file_path = UPLOAD_FOLDER / student["filename"]
-
-    if not file_path.exists():
-        return {
+            "student": None,
             "candidate": None,
-            "message": "CV not found."
         }
 
-    cv_text = extract_text_from_pdf(str(file_path))
-
-    candidate = analyze_cv(cv_text)
+    if student["status"] != "called":
+        return {
+            "student": None,
+            "candidate": None,
+        }
 
     return {
         "student": student,
-        "candidate": candidate.model_dump(),
+        "candidate": student["candidate"],
     }

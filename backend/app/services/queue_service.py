@@ -1,6 +1,9 @@
 import json
 from pathlib import Path
-from app.services.active_interview_service import set_active_student
+from app.services.active_interview_service import (
+    set_active_student,
+    update_active_student_status,
+)
 
 
 QUEUE_FILE = Path("data/queue.json")
@@ -31,7 +34,7 @@ def get_next_id(queue):
     return max(student["id"] for student in queue) + 1
 
 
-def add_student(name, email, filename):
+def add_student(name, email, filename, candidate,):
 
     queue = load_queue()
 
@@ -40,6 +43,7 @@ def add_student(name, email, filename):
         "name": name,
         "email": email,
         "filename": filename,
+        "candidate": None,
         "status": "waiting",
         "queue_position": len(queue) + 1,
     }
@@ -90,6 +94,10 @@ def start_interview(student_id: int):
 
             student["status"] = "interviewing"
 
+            update_active_student_status(
+                "interviewing"
+            )
+
             break
 
     save_queue(queue)
@@ -104,6 +112,10 @@ def complete_interview(student_id: int):
         if student["id"] == student_id:
 
             student["status"] = "completed"
+
+            update_active_student_status(
+                "completed"
+            )
 
             break
 

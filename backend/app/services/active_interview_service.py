@@ -19,8 +19,22 @@ def get_active_student():
 
         try:
             return json.load(f)
+
         except json.JSONDecodeError:
             return None
+
+
+def update_active_student_status(status: str):
+
+    student = get_active_student()
+
+    if not student:
+        return
+
+    student["status"] = status
+
+    with open(ACTIVE_FILE, "w") as f:
+        json.dump(student, f, indent=4)
 
 
 def clear_active_student():

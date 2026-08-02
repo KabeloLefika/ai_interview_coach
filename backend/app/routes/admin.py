@@ -51,4 +51,6 @@ def complete(student_id: int):
 
     complete_interview(student_id)
 
+    clear_active_student()
+
     return {"success": True}

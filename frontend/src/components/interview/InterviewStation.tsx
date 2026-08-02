@@ -8,75 +8,96 @@ import { useSession } from "../../hooks/useSession";
 
 export default function InterviewStation() {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const {
-        setCandidate,
-        //setQuestions,
-        setActiveStudentId,
-    } = useSession();
+  const {
+    setCandidate,
+    setActiveStudentId,
+  } = useSession();
 
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
 
-        const interval = setInterval(async () => {
+    const interval = setInterval(async () => {
 
-            if (loading) return;
+      if (loading) return;
 
-            try {
+      try {
 
-                const response = await api.get(
-                    "/analyze-active-student"
-                );
+        const response = await api.get(
+          "/analyze-active-student"
+        );
 
-                if (!response.data.candidate) {
-                    return;
-                }
+        const student = response.data.student;
 
-                setLoading(true);
+        if (
+          !student ||
+          student.status !== "called" ||
+          !response.data.candidate
+        ) {
+          return;
+        }
 
-                // Store the analyzed candidate
-                setCandidate(response.data.candidate);
+        setLoading(true);
 
-                setActiveStudentId(response.data.student.id);
+        setCandidate(
+          response.data.candidate
+        );
 
-                await api.post(
-                    `/start-interview/${response.data.student.id}`
-                );
+        setActiveStudentId(
+          student.id
+        );
 
-                clearInterval(interval);
+        await api.post(
+          `/start-interview/${student.id}`
+        );
 
-                navigate("/candidate-dashboard");
+        clearInterval(interval);
 
-            } catch (error) {
+        navigate("/candidate-dashboard");
 
-                console.error(error);
+      }
 
-            }
+      catch (error) {
 
-        }, 3000);
+        console.error(error);
 
-        return () => clearInterval(interval);
+      }
 
-    }, [loading, navigate, setCandidate]);
+    }, 3000);
 
-    return (
+    return () => clearInterval(interval);
 
-        <Card className="max-w-3xl mx-auto text-center">
+  }, [
+    loading,
+    navigate,
+    setCandidate,
+    setActiveStudentId,
+  ]);
 
-            <h1 className="text-5xl font-bold text-white">
-                {loading ? "Analyzing Resume..." : "Waiting for Next Candidate"}
-            </h1>
+  return (
 
-            <p className="mt-6 text-gray-400">
-                {loading
-                    ? "Please wait while we prepare the interview."
-                    : "The interview will start automatically when a student is called."}
-            </p>
+    <Card className="max-w-3xl mx-auto text-center">
 
-        </Card>
+      <h1 className="text-5xl font-bold text-white">
 
-    );
+        {loading
+          ? "Analyzing Resume..."
+          : "Waiting for Next Candidate"}
+
+      </h1>
+
+      <p className="mt-6 text-gray-400">
+
+        {loading
+          ? "Please wait while we prepare the interview."
+          : "The interview will start automatically when a student is called."}
+
+      </p>
+
+    </Card>
+
+  );
 
 }

@@ -6,6 +6,8 @@ import shutil
 from app.services.queue_service import add_student
 from app.services.queue_service import load_queue
 from app.services.queue_service import get_student
+from app.services.cv_parser import extract_text_from_pdf
+from app.services.analyzer import analyze_cv
 
 router = APIRouter()
 
@@ -26,10 +28,19 @@ async def student_upload(
     with destination.open("wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
+    cv_text = extract_text_from_pdf(
+    str(destination)
+)
+
+    candidate = analyze_cv(
+        cv_text
+    )
+
     student = add_student(
         name=name,
         email=email,
         filename=file.filename,
+        candidate=candidate.model_dump(),
     )
 
     return student

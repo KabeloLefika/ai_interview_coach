@@ -24,6 +24,9 @@ export default function ThankYou() {
             await api.post(
                 `/complete-interview/${activeStudentId}`
             );
+            await api.post(
+              "/clear-active-interview"
+            );
 
         }
 
