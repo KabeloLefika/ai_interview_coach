@@ -1,10 +1,10 @@
 import json
 from pathlib import Path
+
 from app.services.active_interview_service import (
     set_active_student,
     update_active_student_status,
 )
-
 
 QUEUE_FILE = Path("data/queue.json")
 
@@ -34,7 +34,25 @@ def get_next_id(queue):
     return max(student["id"] for student in queue) + 1
 
 
-def add_student(name, email, filename, candidate,):
+def recalculate_queue_positions(queue):
+    """
+    Queue numbers are only assigned to students who are still waiting.
+    Called, interviewing and completed students receive position 0.
+    """
+
+    position = 1
+
+    for student in queue:
+
+        if student["status"] == "waiting":
+            student["queue_position"] = position
+            position += 1
+
+        else:
+            student["queue_position"] = 0
+
+
+def add_student(name, email, filename, candidate):
 
     queue = load_queue()
 
@@ -45,10 +63,12 @@ def add_student(name, email, filename, candidate,):
         "filename": filename,
         "candidate": candidate,
         "status": "waiting",
-        "queue_position": len(queue) + 1,
+        "queue_position": 0,
     }
 
     queue.append(student)
+
+    recalculate_queue_positions(queue)
 
     save_queue(queue)
 
@@ -66,6 +86,7 @@ def call_student(student_id):
 
     selected_student = None
 
+    # Only one student can be called at a time
     for student in queue:
 
         if student["id"] == student_id:
@@ -77,12 +98,15 @@ def call_student(student_id):
 
             student["status"] = "waiting"
 
+    recalculate_queue_positions(queue)
+
     save_queue(queue)
 
     if selected_student:
         set_active_student(selected_student)
 
     return selected_student
+
 
 def start_interview(student_id: int):
 
@@ -99,6 +123,8 @@ def start_interview(student_id: int):
             )
 
             break
+
+    recalculate_queue_positions(queue)
 
     save_queue(queue)
 
@@ -119,6 +145,8 @@ def complete_interview(student_id: int):
 
             break
 
+    recalculate_queue_positions(queue)
+
     save_queue(queue)
 
 
@@ -129,7 +157,6 @@ def get_student(student_id):
     for student in queue:
 
         if student["id"] == student_id:
-
             return student
 
     return None

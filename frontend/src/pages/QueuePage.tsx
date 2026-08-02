@@ -4,7 +4,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import axios from "axios";
 
 export default function QueuePage() {
@@ -12,7 +12,9 @@ export default function QueuePage() {
 const location = useLocation();
 const navigate = useNavigate();
 
-const queuePosition = location.state?.queuePosition ?? 1;
+const [queuePosition, setQueuePosition] = useState(
+    location.state?.queuePosition ?? 1
+);
 const studentId = location.state?.studentId;
 
 useEffect(() => {
@@ -26,6 +28,8 @@ useEffect(() => {
             const res = await axios.get(
                 `http://localhost:8000/student-status/${studentId}`
             );
+
+            setQueuePosition(res.data.queue_position);
 
             if (res.data.status === "called") {
                 clearInterval(interval);
