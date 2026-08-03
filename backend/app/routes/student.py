@@ -64,3 +64,37 @@ def student_status(student_id: int):
         }
 
     return student
+
+
+@router.get("/queue-stats")
+def queue_stats():
+
+    queue = load_queue()
+
+    waiting = sum(
+        1 for student in queue
+        if student["status"] == "waiting"
+    )
+
+    called = sum(
+        1 for student in queue
+        if student["status"] == "called"
+    )
+
+    interviewing = sum(
+        1 for student in queue
+        if student["status"] == "interviewing"
+    )
+
+    completed = sum(
+        1 for student in queue
+        if student["status"] == "completed"
+    )
+
+    return {
+        "waiting": waiting,
+        "called": called,
+        "interviewing": interviewing,
+        "completed": completed,
+        "total": len(queue)
+    }
