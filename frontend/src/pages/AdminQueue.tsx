@@ -30,6 +30,10 @@ export default function AdminQueue() {
         total: 0,
     });
 
+    const [filter, setFilter] = useState<
+        "all" | "waiting" | "called" | "interviewing" | "completed"
+    >("all");
+
     const loadData = async () => {
 
         try {
@@ -60,77 +64,133 @@ export default function AdminQueue() {
 
     }, []);
 
+    const filteredQueue =
+    filter === "all"
+        ? queue
+        : queue.filter(student => student.status === filter);
+
     return (
 
         <div className="min-h-screen bg-[#08070A] text-white p-10">
 
-            <h1 className="text-4xl font-bold mb-10">
-                AI Interview Dashboard
-            </h1>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+
+                <div>
+
+                    <h1 className="text-5xl font-bold text-white">
+                        AI Career Coach
+                    </h1>
+
+                    <p className="mt-3 text-gray-400 text-lg">
+                        Live Interview Management Dashboard
+                    </p>
+
+                </div>
+
+                <div className="mt-6 md:mt-0 flex items-center gap-3 rounded-full border border-[#93CD0C] bg-[#131118] px-5 py-3">
+
+                    <div className="h-3 w-3 rounded-full bg-[#93CD0C] animate-pulse"></div>
+
+                    <span className="font-semibold text-[#93CD0C]">
+                        Live Updates
+                    </span>
+
+                </div>
+
+            </div>
 
             {/* Statistics */}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6 mb-12">
+            <div className="grid grid-cols-2 xl:grid-cols-5 gap-6 mb-12">
 
-                <div className="rounded-2xl border border-yellow-500 bg-[#131118] p-6">
+                <button
+                    onClick={() => setFilter("all")}
+                    className={`rounded-2xl border p-6 text-left transition duration-300 hover:scale-105 ${
+                        filter === "all"
+                            ? "border-[#93CD0C] bg-[#15121B] shadow-[0_0_25px_rgba(147,205,12,0.2)]"
+                            : "border-[#232129] bg-[#131118]"
+                    }`}
+                >
+                    <p className="text-gray-400">Total Students</p>
+                    <h2 className="text-5xl font-bold mt-3">{stats.total}</h2>
+                </button>
 
-                    <p className="text-gray-400">
-                        Waiting
-                    </p>
-
+                <button
+                    onClick={() => setFilter("waiting")}
+                    className={`rounded-2xl border p-6 text-left transition duration-300 hover:scale-105 ${
+                        filter === "waiting"
+                            ? "border-yellow-400 bg-[#15121B]"
+                            : "border-[#232129] bg-[#131118]"
+                    }`}
+                >
+                    <p className="text-gray-400">Waiting</p>
                     <h2 className="text-5xl font-bold text-yellow-400 mt-3">
                         {stats.waiting}
                     </h2>
+                </button>
 
-                </div>
-
-                <div className="rounded-2xl border border-blue-500 bg-[#131118] p-6">
-
-                    <p className="text-gray-400">
-                        Called
-                    </p>
-
+                <button
+                    onClick={() => setFilter("called")}
+                    className={`rounded-2xl border p-6 text-left transition duration-300 hover:scale-105 ${
+                        filter === "called"
+                            ? "border-blue-400 bg-[#15121B]"
+                            : "border-[#232129] bg-[#131118]"
+                    }`}
+                >
+                    <p className="text-gray-400">Called</p>
                     <h2 className="text-5xl font-bold text-blue-400 mt-3">
                         {stats.called}
                     </h2>
+                </button>
 
-                </div>
-
-                <div className="rounded-2xl border border-[#93CD0C] bg-[#131118] p-6">
-
-                    <p className="text-gray-400">
-                        Interviewing
-                    </p>
-
+                <button
+                    onClick={() => setFilter("interviewing")}
+                    className={`rounded-2xl border p-6 text-left transition duration-300 hover:scale-105 ${
+                        filter === "interviewing"
+                            ? "border-[#93CD0C] bg-[#15121B]"
+                            : "border-[#232129] bg-[#131118]"
+                    }`}
+                >
+                    <p className="text-gray-400">Interviewing</p>
                     <h2 className="text-5xl font-bold text-[#93CD0C] mt-3">
                         {stats.interviewing}
                     </h2>
+                </button>
 
-                </div>
-
-                <div className="rounded-2xl border border-purple-500 bg-[#131118] p-6">
-
-                    <p className="text-gray-400">
-                        Completed
-                    </p>
-
+                <button
+                    onClick={() => setFilter("completed")}
+                    className={`rounded-2xl border p-6 text-left transition duration-300 hover:scale-105 ${
+                        filter === "completed"
+                            ? "border-purple-400 bg-[#15121B]"
+                            : "border-[#232129] bg-[#131118]"
+                    }`}
+                >
+                    <p className="text-gray-400">Completed</p>
                     <h2 className="text-5xl font-bold text-purple-400 mt-3">
                         {stats.completed}
                     </h2>
+                </button>
 
-                </div>
+            </div>
 
-                <div className="rounded-2xl border border-white bg-[#131118] p-6">
 
-                    <p className="text-gray-400">
-                        Total Students
-                    </p>
+            {/*Overview*/}
 
-                    <h2 className="text-5xl font-bold mt-3">
-                        {stats.total}
-                    </h2>
+            <div className="flex items-center justify-between mb-6">
 
-                </div>
+                <h2 className="text-2xl font-bold">
+
+                    {filter === "all"
+                        ? "All Candidates"
+                        : `${filter.charAt(0).toUpperCase()}${filter.slice(1)} Candidates`}
+
+                </h2>
+
+                <span className="text-gray-400">
+
+                    {filteredQueue.length} Candidate{filteredQueue.length !== 1 ? "s" : ""}
+
+                </span>
 
             </div>
 
@@ -138,7 +198,7 @@ export default function AdminQueue() {
 
             <div className="space-y-5">
 
-                {queue.map((student) => (
+                {filteredQueue.map((student) => (
 
                     <div
                         key={student.id}
