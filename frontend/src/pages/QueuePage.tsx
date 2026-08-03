@@ -1,96 +1,122 @@
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 
-import { useEffect,useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 export default function QueuePage() {
 
-const location = useLocation();
-const navigate = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-const [queuePosition, setQueuePosition] = useState(
-    location.state?.queuePosition ?? 1
-);
-const studentId = location.state?.studentId;
+    const studentId = location.state?.studentId;
 
-useEffect(() => {
+    useEffect(() => {
 
-    if (!studentId) return;
+        if (!studentId) return;
 
-    const interval = setInterval(async () => {
+        const interval = setInterval(async () => {
 
-        try {
+            try {
 
-            const res = await axios.get(
-                `http://localhost:8000/student-status/${studentId}`
-            );
+                const res = await axios.get(
+                    `http://localhost:8000/student-status/${studentId}`
+                );
 
-            setQueuePosition(res.data.queue_position);
+                if (res.data.status === "called") {
 
-            if (res.data.status === "called") {
-                clearInterval(interval);
-                navigate("/interview-ready", {
-                    state: {
-                        studentId,
-                    },
-                });
+                    clearInterval(interval);
+
+                    navigate("/interview-ready", {
+                        state: {
+                            studentId,
+                        },
+                    });
+
+                    return;
+                }
+
+                if (res.data.status === "completed") {
+
+                    clearInterval(interval);
+
+                    navigate("/student-thank-you");
+
+                    return;
+                }
+
+            } catch (err) {
+
+                console.error(err);
+
             }
 
-            if (res.data.status === "completed") {
-                clearInterval(interval);
-                navigate("/student-thank-you");
-                return;
-            }
+        }, 3000);
 
-        } catch (err) {
-            console.error(err);
-        }
+        return () => clearInterval(interval);
 
-    }, 3000);
+    }, [studentId, navigate]);
 
-    return () => clearInterval(interval);
+    return (
 
-}, [studentId, navigate]);
+        <div className="min-h-screen bg-[#08070A] flex flex-col">
 
-  return (
-    <div className="min-h-screen bg-[#08070A] flex flex-col">
+            <Header />
 
-      <Header />
+            <main className="flex-1 flex items-center justify-center px-6">
 
-      <main className="flex-1 flex items-center justify-center px-6">
+                <Card className="max-w-3xl w-full text-center bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-10">
 
-        <Card className="max-w-3xl w-full text-center">
+                    <div className="text-7xl">
+                        ✅
+                    </div>
 
-          <h1 className="text-5xl font-bold text-white">
-            You're in the Queue!
-          </h1>
+                    <h1 className="mt-8 text-5xl font-bold text-white">
+                        Registration Successful
+                    </h1>
 
-          <p className="mt-8 text-xl text-gray-300">
-            Your CV has been uploaded successfully.
-          </p>
+                    <p className="mt-6 text-xl text-gray-300 leading-8">
+                        Thank you for registering for the
+                        <span className="text-[#93CD0C] font-semibold">
+                            {" "}AI Career Coach Experience
+                        </span>.
+                    </p>
 
-          <div className="mt-10 rounded-2xl border border-[#93CD0C] bg-[#15121B] p-8">
+                    <div className="mt-10 rounded-2xl border border-[#93CD0C] bg-[#15121B] p-8">
 
-            <p className="text-gray-400">
-              Queue Number
-            </p>
+                        <h2 className="text-3xl font-bold text-[#93CD0C]">
+                            Your CV Has Been Submitted
+                        </h2>
 
-            <h2 className="mt-4 text-7xl font-bold text-[#93CD0C]">
-              #{queuePosition}
-            </h2>
+                        <p className="mt-6 text-gray-300 leading-8">
 
-          </div>
+                            Please remain nearby and keep this page open.
 
-        </Card>
+                            <br /><br />
 
-      </main>
+                            A Deloitte representative will notify you on this device when you have been selected for your AI interview.
 
-      <Footer />
+                        </p>
 
-    </div>
-  );
+                    </div>
+
+                    <p className="mt-8 text-gray-500">
+
+                        Thank you for your patience and enjoy the AWS Summit while you wait.
+
+                    </p>
+
+                </Card>
+
+            </main>
+
+            <Footer />
+
+        </div>
+
+    );
+
 }
