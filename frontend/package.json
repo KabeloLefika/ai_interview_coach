@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
 
-  "homepage": "https://KabeloLefika.github.io/ai_interview_coach",
+  "homepage": "https://kabelolefika.github.io/ai_interview_coach",
 
   "scripts": {
     "dev": "vite",
