@@ -12,8 +12,7 @@ import QuestionCard from "./QuestionCard";
 import AnswerBox from "./AnswerBox";
 import InterviewProgress from "./InterviewProgress";
 
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
+import AdminLayout from "../layouts/AdminLayout";
 
 export default function InterviewCard() {
 
@@ -124,11 +123,9 @@ export default function InterviewCard() {
 
   return (
 
-    <div className="min-h-screen bg-[#08070A] flex flex-col">
+    <AdminLayout>
 
-      <Header />
-
-      <main className="flex-1 px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+      <div className="px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
 
         <div className="mx-auto w-full max-w-5xl">
 
@@ -251,14 +248,11 @@ export default function InterviewCard() {
 
           </Card>
 
-        </div>
-
-      </main>
-
-      <Footer />
+      </div>
 
     </div>
 
-  );
+  </AdminLayout>
 
+);
 }

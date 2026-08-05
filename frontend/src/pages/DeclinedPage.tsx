@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
+import StudentLayout from "../components/layouts/StudentLayout";
 
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
-
 
 export default function DeclinedPage() {
 
@@ -13,11 +11,9 @@ export default function DeclinedPage() {
 
   return (
 
-    <div className="min-h-screen bg-[#08070A] flex flex-col">
+    <StudentLayout>
 
-      <Header />
-
-      <main className="flex-1 px-4 py-8 sm:px-6">
+      <div className="px-4 py-8 sm:px-6">
 
         <div className="mx-auto max-w-3xl">
 
@@ -60,11 +56,10 @@ export default function DeclinedPage() {
 
         </div>
 
-      </main>
+      </div>
 
-      <Footer />
-
-    </div>
+    </StudentLayout>
 
   );
+
 }

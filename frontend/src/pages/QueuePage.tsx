@@ -5,6 +5,7 @@ import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 
 import { useEffect } from "react";
+import StudentLayout from "../components/layouts/StudentLayout";
 import axios from "axios";
 
 export default function QueuePage() {
@@ -62,11 +63,9 @@ export default function QueuePage() {
 
     return (
 
-        <div className="min-h-screen bg-[#08070A] flex flex-col">
+        <StudentLayout>
 
-            <Header />
-
-            <main className="flex-1 flex items-center justify-center px-6">
+            <div className="flex items-center justify-center px-6 py-10">
 
                 <Card className="max-w-3xl w-full text-center bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-10">
 
@@ -111,12 +110,9 @@ export default function QueuePage() {
 
                 </Card>
 
-            </main>
+            </div>
 
-            <Footer />
-
-        </div>
+        </StudentLayout>
 
     );
-
 }

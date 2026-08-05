@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
+import StudentLayout from "../components/layouts/StudentLayout";
 import Card from "../components/common/Card";
 
 export default function InterviewReady() {
@@ -47,13 +46,11 @@ export default function InterviewReady() {
 
     return (
 
-        <div className="min-h-screen bg-[#08070A] flex flex-col">
+        <StudentLayout>
 
-            <Header />
+            <div className="flex items-center justify-center px-6 py-10">
 
-            <main className="flex-1 flex items-center justify-center px-6">
-
-                <Card className="max-w-3xl w-full text-center">
+                <Card className="max-w-3xl w-full text-center bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-10">
 
                     <h1 className="text-6xl font-bold text-[#93CD0C]">
                         🎉 It's Your Turn!
@@ -63,17 +60,15 @@ export default function InterviewReady() {
                         Please proceed to the interview station.
                     </p>
 
-                    <p className="mt-6 text-gray-400">
+                    <p className="mt-6 text-gray-400 leading-8">
                         A Deloitte representative will begin your AI interview shortly.
                     </p>
 
                 </Card>
 
-            </main>
+            </div>
 
-            <Footer />
-
-        </div>
+        </StudentLayout>
 
     );
 

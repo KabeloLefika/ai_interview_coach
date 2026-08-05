@@ -1,18 +1,15 @@
 import { CheckCircle } from "lucide-react";
 
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
+import StudentLayout from "../components/layouts/StudentLayout";
 import Card from "../components/common/Card";
 
 export default function StudentThankYou() {
 
   return (
 
-    <div className="min-h-screen bg-[#08070A] flex flex-col">
+    <StudentLayout>
 
-      <Header />
-
-      <main className="flex-1 flex items-center justify-center px-4 py-8">
+      <div className="flex items-center justify-center px-4 py-8">
 
         <Card className="max-w-3xl w-full text-center bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-8 sm:p-10">
 
@@ -72,11 +69,10 @@ export default function StudentThankYou() {
 
         </Card>
 
-      </main>
+      </div>
 
-      <Footer />
-
-    </div>
+    </StudentLayout>
 
   );
+
 }

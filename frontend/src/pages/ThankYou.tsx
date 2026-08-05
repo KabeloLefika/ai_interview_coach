@@ -2,10 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
 import api from "../services/api";
 
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
+import AdminLayout from "../components/layouts/AdminLayout";
 
 import { useSession } from "../hooks/useSession";
 
@@ -44,11 +43,9 @@ export default function ThankYou() {
 
   return (
 
-    <div className="min-h-screen bg-[#08070A] flex flex-col">
+    <AdminLayout>
 
-      <Header />
-
-      <main className="flex-1 px-4 py-8 sm:px-6 md:px-8 lg:px-10">
+      <div className="px-4 py-8 sm:px-6 md:px-8 lg:px-10">
 
         <div className="mx-auto max-w-5xl">
 
@@ -121,14 +118,12 @@ export default function ThankYou() {
 
         </Card>
 
-        </div>
-
-      </main>
-
-      <Footer />
+      </div>
 
     </div>
 
-  );
+  </AdminLayout>
+
+);
 
 }
