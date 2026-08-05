@@ -8,7 +8,7 @@ import { SessionProvider } from "./context/SessionContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/ai_interview_coach">
       <SessionProvider>
         <App />
       </SessionProvider>
