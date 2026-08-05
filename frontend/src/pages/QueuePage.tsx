@@ -1,7 +1,4 @@
 import { useLocation, useNavigate } from "react-router-dom";
-
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 import Card from "../components/common/Card";
 
 import { useEffect } from "react";
