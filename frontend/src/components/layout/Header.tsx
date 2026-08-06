@@ -13,7 +13,7 @@ export default function Header() {
           <img
             src={logo}
             alt="Deloitte"
-            className="h-9 w-auto"
+            className="h-8 w-auto"
           />
 
           <h1 className="text-xl font-bold tracking-wide text-white text-center">
