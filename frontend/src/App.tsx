@@ -1,11 +1,89 @@
-import StudentRoutes from "./routes/StudentRoutes"
-import AdminRoutes from "./routes/AdminRoutes"
+import { Routes, Route } from "react-router-dom";
+import AdminQueue from "./pages/AdminQueue";
+import InterviewStationPage from "./pages/InterviewStation";
+import CandidateDashboardPage from "./pages/CandidateDashboardPage";
+import Interview from "./pages/Interview";
+import Results from "./pages/Results";
+import ThankYou from "./pages/ThankYou";
+
+
+import ConsentPage from "./pages/ConsentPage";
+import DeclinedPage from "./pages/DeclinedPage";
+import Home from "./pages/Home";
+import StudentUpload from "./pages/StudentUpload";
+import QueuePage from "./pages/QueuePage";
+import InterviewReady from "./pages/InterviewReady";
+import StudentThankYou from "./pages/StudentThankYou";
+
 
 export default function App() {
   return(
-    <>
-        <StudentRoutes/>
-        <AdminRoutes/>
-    </>
+    <Routes>
+      <Route
+      path="/"
+      element={<ConsentPage />}
+      />
+
+      <Route
+      path="/home"
+      element={<Home />}
+      />
+
+      <Route
+      path="/declined"
+      element={<DeclinedPage />}
+      />
+
+      <Route
+      path="/student-upload"
+      element={<StudentUpload />}
+      />
+
+      <Route
+      path="/queue"
+      element={<QueuePage />}
+      />
+
+      <Route
+      path="/interview-ready"
+      element={<InterviewReady />}
+      />
+
+      <Route
+      path="/student-thank-you"
+      element={<StudentThankYou />}
+      />
+
+      <Route
+      path="/admin"
+      element={<AdminQueue />}
+      />
+      
+      <Route
+      path="/station"
+      element={<InterviewStationPage />}
+      />
+
+      <Route
+      path="/candidate-dashboard"
+      element={<CandidateDashboardPage />}
+      />
+
+      <Route
+      path="/interview"
+      element={<Interview />}
+      />
+
+      <Route
+      path="/results"
+      element={<Results />}
+      />
+
+      <Route
+      path="/thank-you"
+      element={<ThankYou />}
+      />
+
+    </Routes>
   );
 }
