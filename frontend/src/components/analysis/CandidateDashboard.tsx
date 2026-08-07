@@ -87,8 +87,8 @@ export default function CandidateDashboard() {
             onClick={startInterview}
         >
           {interviewCompleted
-            ? "✅ Interview Completed"
-            : "🚀 Start AI Interview"}
+            ? " Interview Completed"
+            : " Start AI Interview"}
         </Button>
       </div>
     </div>

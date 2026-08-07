@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { CheckCircle } from "lucide-react";
 import api from "../services/api";
 
 import Card from "../components/common/Card";
@@ -50,11 +49,6 @@ export default function ThankYou() {
         <div className="mx-auto max-w-5xl">
 
           <Card className="bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-6 sm:p-8 md:p-12 text-center">
-
-            <CheckCircle
-              size={80}
-              className="mx-auto text-[#93CD0C] sm:w-24 sm:h-24 md:w-28 md:h-28"
-            />
 
             <h1 className="mt-8 text-3xl sm:text-4xl md:text-5xl font-bold text-white">
               Thank You
