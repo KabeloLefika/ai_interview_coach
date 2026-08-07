@@ -394,13 +394,13 @@ export default function AdminQueue() {
 
                                     >
 
-                                        {student.status === "waiting" && "⏳ Waiting"}
+                                        {student.status === "waiting" && " Waiting"}
 
-                                        {student.status === "called" && "📢 Called"}
+                                        {student.status === "called" && " Called"}
 
-                                        {student.status === "interviewing" && "🎤 Interviewing"}
+                                        {student.status === "interviewing" && " Interviewing"}
 
-                                        {student.status === "completed" && "✅ Completed"}
+                                        {student.status === "completed" && " Completed"}
 
                                     </span>
 
