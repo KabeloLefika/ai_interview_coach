@@ -19,10 +19,6 @@ export default function DeclinedPage() {
 
           <Card className="bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-8 sm:p-10 text-center">
 
-            <div className="text-6xl">
-              🔒
-            </div>
-
             <h1 className="mt-6 text-3xl sm:text-4xl font-bold text-white">
               Consent Required
             </h1>

@@ -254,7 +254,7 @@ export default function AdminQueue() {
 
                     type="text"
 
-                    placeholder="🔍 Search by candidate name or email..."
+                    placeholder=" Search by candidate name or email..."
 
                     value={search}
 
@@ -450,17 +450,17 @@ export default function AdminQueue() {
 
                                         {student.status === "waiting"
 
-                                            ? "▶ Start Interview"
+                                            ? " Start Interview"
 
                                             : student.status === "called"
 
-                                            ? "📢 Called"
+                                            ? " Called"
 
                                             : student.status === "interviewing"
 
-                                            ? "🎤 Live"
+                                            ? " Live"
 
-                                            : "✓ Completed"}
+                                            : " Completed"}
 
                                     </button>
 

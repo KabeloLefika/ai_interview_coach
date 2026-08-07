@@ -53,7 +53,7 @@ export default function InterviewReady() {
                 <Card className="max-w-3xl w-full text-center bg-[#131118] border border-[#232129] shadow-[0_0_40px_rgba(147,205,12,0.08)] p-10">
 
                     <h1 className="text-6xl font-bold text-[#93CD0C]">
-                        🎉 It's Your Turn!
+                         It's Your Turn!
                     </h1>
 
                     <p className="mt-8 text-2xl text-white">
