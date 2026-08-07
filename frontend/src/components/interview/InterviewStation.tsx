@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Bot } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import Card from "../common/Card";
@@ -42,7 +41,6 @@ export default function InterviewStation() {
       }, [loading, navigate, setCandidate, setActiveStudentId]);
    return (
       <Card className="max-w-4xl w-full bg-[#131118] border border-[#232129] shadow-[0_0_60px_rgba(147,205,12,0.12)] rounded-3xl p-14 text-center">
-        <Bot size={80} className="mx-auto text-[#93CD0C]"/>
         <h1 className="mt-8 text-5xl font-bold text-white">
               AI Interview Station
         </h1>
